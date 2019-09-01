@@ -1,0 +1,127 @@
+package com.dls.base.controller;
+
+import com.dls.base.entity.Person;
+import com.dls.base.entity.Role;
+import com.dls.base.repository.PersonRepository;
+import com.dls.base.repository.RoleRepository;
+import com.dls.base.service.SecurityService;
+import com.dls.base.utils.Utils;
+import com.dls.base.validator.LoginValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.PostConstruct;
+import java.util.HashSet;
+import java.util.Set;
+
+@Controller
+public class MainController
+{
+
+	private final PersonRepository personRepository;
+	private final RoleRepository roleRepository;
+	private final SecurityService securityService;
+	private final LoginValidator loginValidator;
+
+	@Autowired
+	MainController(PersonRepository personRepository, RoleRepository roleRepository, SecurityService securityService, LoginValidator loginValidator, Utils utils) {
+		this.personRepository = personRepository;
+		this.roleRepository = roleRepository;
+		this.securityService = securityService;
+		this.loginValidator = loginValidator;
+		this.utils = utils;
+	}
+
+	@Autowired
+	private final Utils utils;
+
+	/*
+	@PostMapping(value = "/login")
+	public String login(@ModelAttribute("personForm") Person personForm, BindingResult bindingResult, Model model) {
+		loginValidator.validate(personForm, bindingResult);
+		if (bindingResult.hasErrors()) {
+			return "login";
+		}
+		securityService.autoLogin(personForm.getUsername(), personForm.getConfirmPassword());
+		return "redirect:/dls";
+	}
+	 */
+
+	@GetMapping(value = {"/","/login"})
+	public String login()
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			return "redirect:/dls";
+		}
+		return "login";
+	}
+
+	@GetMapping(value = "/logout")
+	public String logout()
+	{
+		return "redirect:/login";
+	}
+
+	@GetMapping(value = "/dls/logout")
+	public String logout1()
+	{
+		return "redirect:/logout";
+	}
+
+	@GetMapping(value = "/dls")
+	public String main()
+	{
+		return "dls";
+	}
+
+	@Value("#{appProperties['roles.admin.code']}")
+	private String rolesAdminCode;
+
+	@PostConstruct
+	public void postConstruct() {
+		//��������� �� ������
+		if (utils.getAppProperty("properties.read").equals("true")) {
+			Role role;
+			Person person;
+			//������ ����, ���� �� ���
+			if (this.roleRepository.findAll().size() == 0){
+				for (String key : utils.getRoles().keySet()){
+					role = new Role();
+					role.setName(utils.getRoles().get(key));
+					role.setCode(key);
+					this.roleRepository.save(role);
+				}
+			}
+			//������ ��������������, ���� �����������
+			if (this.personRepository.findByRoleCode(rolesAdminCode).size() == 0){
+				person = new Person();
+				person.setUsername(utils.getAppProperty("admin.username"));
+				person.setPassword(new BCryptPasswordEncoder().encode(utils.getAppProperty("admin.password")));
+				person.setEmail(utils.getAppProperty("admin.email"));
+				person.setSurname(utils.getAppProperty("admin.surname"));
+				person.setName(utils.getAppProperty("admin.name"));
+				person.setMiddlename(utils.getAppProperty("admin.middlename"));
+				person = this.personRepository.save(person);
+
+				//��������� ���� ��������������
+				role = this.roleRepository.findByRoleCode(rolesAdminCode);
+				Set<Role> adminRoles = new HashSet<>();
+				adminRoles.add(role);
+				person.setRoles(adminRoles);
+				this.personRepository.save(person);
+
+			}
+
+		}
+	}
+
+}

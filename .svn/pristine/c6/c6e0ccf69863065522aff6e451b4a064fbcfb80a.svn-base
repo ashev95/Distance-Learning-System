@@ -1,0 +1,64 @@
+package com.dls.base.controller;
+
+import com.dls.base.*;
+import com.dls.base.entity.Person;
+import com.dls.base.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
+
+@RestController
+@RequestMapping("view/person")
+public class ViewRestController
+{
+
+	private final PersonRepository personRepository;
+
+	@Autowired
+	ViewRestController(PersonRepository personRepository) {
+		this.personRepository = personRepository;
+	}
+
+	@GetMapping(value = "/all")
+	public ViewArray getAll() {
+		ViewButton viewButton1 = new ViewButton();
+		viewButton1.label = "Обновить";
+		viewButton1.iconClass = "refresh-btn-16";
+		viewButton1.hideFunction = "return false";
+		viewButton1.onClick = "gridView.customRefresh();";
+
+		ViewButton viewButton2 = new ViewButton();
+		viewButton2.label = "Закрыть";
+		viewButton2.iconClass = "close-btn-16";
+		viewButton2.hideFunction = "return false";
+		viewButton2.onClick = "this.appWidget.closeTab(this);";
+
+		ViewStructure viewStructure = new ViewStructure();
+		viewStructure.name = " ";
+		viewStructure.field = "name";
+		viewStructure.width = "auto";
+
+		ViewEntity viewEntity = new ViewEntity();
+		viewEntity.id = 1;
+		viewEntity.name = "Сотрудник";
+		viewEntity.type = "person";
+
+		ViewData viewData = new ViewData();
+		viewData.identifier = "id";
+		viewData.label = "name";
+		viewData.items = new ArrayList<>();
+		viewData.items.add(viewEntity);
+
+		ViewArray viewArray = new ViewArray();
+		viewArray.buttons = new ArrayList<>();
+		viewArray.buttons.add(viewButton1);
+		viewArray.buttons.add(viewButton2);
+		viewArray.structure= new ArrayList<>();
+		viewArray.structure.add(viewStructure);
+		viewArray.data = viewData;
+
+		return viewArray;
+	}
+
+}

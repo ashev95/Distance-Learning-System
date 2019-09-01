@@ -1,0 +1,10 @@
+package com.dls.base;
+
+public class ViewButton {
+
+	public String label;
+	public String iconClass;
+	public String hideFunction;
+	public String onClick;
+
+}

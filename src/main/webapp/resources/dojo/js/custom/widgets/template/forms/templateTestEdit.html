@@ -1,0 +1,178 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_name'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_name'
+							   type="text"
+							   name="name"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Название должно содержать не более 255 символов"'
+							   missingMessage="Поле Название обязательно для заполнения"
+							   value="${response.attributes.name.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_description'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_description'
+							   type="text"
+							   name="description"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Описание должно содержать не более 255 символов"'
+							   missingMessage="Поле Описание обязательно для заполнения"
+							   value="${response.attributes.description.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_category'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<script>
+                            require(["widgets/ValidationAttributeWidget"]);
+						</script>
+						<input data-dojo-attach-point="component_category"
+							   name="category"
+							   required="false"
+							   data-dojo-type="ValidationAttributeWidget"
+							   readonly
+						></input>
+					</div>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_group_button_1"
+							onClick="var widget = dijit.byId(dojo.query('*[name=category]')[0].id); var appWidget = this.getParent().getParent().appWidget; appWidget.showCustomDialog('dialog/category/all', false, (function(selected){widget.setValue(selected)}), (function(selected){var o = {id: {value: selected.cardId[0]}, name: {value: selected.name[0]}}; return o;}));"
+							type="button">...</button>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_group_button_2"
+							onClick="var widget = dijit.byId(dojo.query('*[name=category]')[0].id); widget.clearValue();"
+							type="button">Х</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_status'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_status'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_author'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_author'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateCreate'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateCreate'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_byOrder'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_byOrder'
+							   type="checkbox"
+							   name="byOrder"
+							   data-dojo-type="dijit/form/CheckBox"
+							   onChange="dojo.query('.hide1', this.getParent().getParent().domNode)[0].style.display = (this.checked ? 'none' : '')"
+							   value=""
+							   checked="${response.attributes.byOrder.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr class="hide1">
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_deprecateChangeAnswerCount'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_deprecateChangeAnswerCount'
+							   name="deprecateChangeAnswerCount"
+							   required="true"
+							   data-dojo-type="dijit/form/NumberTextBox"
+							   data-dojo-props='constraints:{min:0,max:100},
+							   invalidMessage:"Поле Допустимое количество возвратов к вопросу должно содержать положительное целое число в диапазоне от 0 до 100"'
+							   rangeMessage="Поле Допустимое количество возвратов к вопросу должно содержать положительное целое число в диапазоне от 0 до 100"
+							   value="${response.attributes.deprecateChangeAnswerCount.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_timeLimit'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_timeLimit'
+							   name="timeLimit"
+							   required="true"
+							   data-dojo-type="dijit/form/NumberTextBox"
+							   data-dojo-props='constraints:{min:0,max:10000},
+							   invalidMessage:"Поле Ограничение прохождения (в минутах) должно содержать положительное целое число в диапазоне от 0 до 10000"'
+							   rangeMessage="Поле Ограничение прохождения (в минутах) должно содержать положительное целое число в диапазоне от 0 до 10000"
+							   value="${response.attributes.timeLimit.value}"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table style="padding: 10px; width: 100%;">
+			<tr>
+				<td colspan="2">
+					<div data-dojo-attach-point='embView' data-dojo-type="widgets/GridWidget" data-dojo-props="formWidget:this">
+					</div>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

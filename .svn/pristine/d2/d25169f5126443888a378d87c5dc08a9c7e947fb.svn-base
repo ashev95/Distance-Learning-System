@@ -1,0 +1,48 @@
+group 'dls'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+war {
+    archiveName = 'DLS.war'
+}
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.6.RELEASE' //Для Servlet
+    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4' //Для работы с PostgreSQL
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.0.7.RELEASE' //Объявления Repository
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.0.6.RELEASE' //Объявления Spring Security
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.0.6.RELEASE'
+
+    //Для корректной работы Hibernate
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.3.1.Final'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.10.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.3.1.Final'
+    compile group: 'org.hibernate', name: 'hibernate-ehcache', version: '5.3.1.Final'
+
+}
+
+task copyToWildfly(type: Copy) {
+    def deployPath = "C:\\DLS\\Server\\wildfly-13.0.0.Final\\standalone\\deployments".replaceAll("\\\\", "/")
+    def fileDir = "${project.buildDir}/libs".replaceAll("\\\\", "/")
+    //def fileName = "${project.group}-${project.version}.war"
+    def fileName = "DLS.war"
+
+    from fileDir
+    into deployPath
+    include fileName
+}
+
+task deploy {
+    dependsOn 'clean'
+    dependsOn 'build'
+    dependsOn 'copyToWildfly'
+    tasks.findByName('build').mustRunAfter 'clean'
+    tasks.findByName('copyToWildfly').mustRunAfter 'build'
+}

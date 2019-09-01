@@ -1,0 +1,17 @@
+package com.dls.base;
+
+import org.springframework.ws.transport.http.support.AbstractAnnotationConfigMessageDispatcherServletInitializer;
+
+public class ServletInitializer extends AbstractAnnotationConfigMessageDispatcherServletInitializer {
+
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{SpringWebConfig.class};
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[]{SpringWebConfig.class};
+    }
+
+}

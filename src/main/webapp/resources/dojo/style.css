@@ -1,0 +1,254 @@
+.dialogGridView{
+    height:400px !important;
+}
+
+.dialogBtn > SPAN > SPAN > SPAN {
+    width: 60px;
+}
+
+.dialogBtn{
+    width: 50%;
+    float: left;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+    text-align: center;
+}
+
+html {
+	
+}
+
+/* Фоновый цвет */
+body{
+	background-color: #E3F0FC !important;
+}
+
+.dijitGutter{
+	background-color: #E3F0FC !important;
+}
+
+.header{
+	background-color: #E3F0FC !important;
+}
+
+hr {
+  border: none;
+  border-top: 1px dotted #759dc0;
+  height: 1px;
+}
+
+.upper_title{
+	font-size: 14px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.lower_title{
+	font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.logo{
+	background-image:url(../dojo/images/logo.png);
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 50px;
+}
+
+.borderNone {
+	border-width: 0px !important;
+}
+
+.myDijitTab {
+	background-color: #cfe5fa !important;
+}
+
+.dijitBorderContainer  {
+    height:100%;
+}
+
+.dijitSplitter {
+  background-color: #cfe5fa !important;
+}
+
+.dijitSplitterHover {
+  background: #cfe5fa !important;
+}
+
+/* Влияет на высоту предствления */
+.gridView{
+	height:95% !important;
+}
+
+/* Влияет на высоту встроенного предствления */
+.gridEmbView{
+	height:300px !important;
+}
+
+/* Оцентрирование иконки кнопки грида по высоте */
+.dijitMenuItemIconCell{
+	padding-top: 4px !important;
+}
+
+.refresh-btn-16 {
+	background-image:url(../dojo/images/refresh-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.close-btn-16 {
+	background-image:url(../dojo/images/close-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.edit-btn-16 {
+	background-image:url(../dojo/images/edit-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.delete-btn-16 {
+	background-image:url(../dojo/images/delete-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.save-btn-16 {
+	background-image:url(../dojo/images/save-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.add-btn-16 {
+	background-image:url(../dojo/images/add-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.image-resource-16 {
+	background-image:url(../dojo/images/image-resource-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.file-resource-16 {
+	background-image:url(../dojo/images/file-resource-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.audio-resource-16 {
+	background-image:url(../dojo/images/audio-resource-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.text-resource-16 {
+	background-image:url(../dojo/images/text-resource-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.video-resource-16 {
+	background-image:url(../dojo/images/video-resource-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.claro .customTooltipDialog .dijitMenuItemActive {
+	background-color: #abd6ff;
+	background-repeat: no-repeat;
+	background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+	padding: 0px;
+	margin-top: 0px;
+}
+
+.claro .customTooltipDialog .dijitMenuItemSelected,
+.claro .customTooltipDialog .dijitMenuItemSelected td {
+	border-color: #ffffff;
+	background-color: #ffffff;
+}
+
+.claro .customTooltipDialog .dijitMenuItemHover,
+.claro .customTooltipDialog .dijitMenuItemHover td {
+	background-color: #abd6ff;
+	background-repeat: no-repeat;
+	background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.claro .customTooltipDialog .dijitMenuItem {
+	float:left;
+	width: 100%;
+	padding: 0px;
+}
+
+.claro .customTooltipDialog .dijitMenuItem td {
+	border:none;
+}
+
+.change-password-16 {
+	background-image:url(../dojo/images/change-password-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.dijitMenuBar{
+	width:100%;
+	float:right;
+}
+
+.dijitMenuItem{
+	float:right;
+}
+
+.FormWidget > .dijitContentPane{
+	height:100%;
+}
+
+form{
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+}
+
+/* ValidationRoleTextAreaWidget */
+div.ValidationRoleTextAreaWidgetError  > div.dijitInputContainer > textarea{
+	border-color: #ce5050;
+}
+
+/* ValidationAttributeTextAreaWidget */
+div.ValidationAttributeTextAreaWidgetError  > div.dijitInputContainer > textarea{
+	border-color: #ce5050;
+}
+
+.componentResource{
+	border: 1px #b5bcc7 dashed;
+}
+
+#fadeTarget{
+	width: 250px;
+	height: 120px;
+	line-height: 120px;
+	background-color: #E3F0FC;
+	margin: 2em;
+	text-align: center;
+	position: absolute;
+	z-index: 10;
+	bottom: 5px;
+	right: 5px;
+	border: 1px solid #4167b0;
+	opacity: 0;
+}
+
+/* Исправляет высоту диалога формы */
+.fixFormDialogBlock{
+	height: 100% !important;
+}
+
+/* Исправляет длину поля */
+.ValidationAttributeWidget{
+	width: 99% !important;
+}

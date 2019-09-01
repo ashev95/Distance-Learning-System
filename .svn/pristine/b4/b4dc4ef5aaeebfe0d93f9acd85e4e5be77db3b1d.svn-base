@@ -1,0 +1,116 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- Для работы стартовой страницы "/" -->
+    <context:component-scan base-package="com.dls.base" />
+
+    <context:annotation-config />
+
+    <!-- Путь к конфигу -->
+    <bean id="appProperties" class = "org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name = "fileEncoding" value = "UTF-8" />
+        <property name = "location" value = "classpath:app.properties" />
+    </bean>
+
+    <!-- Доступ к статическим ресурсам -->
+    <mvc:annotation-driven />
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/query/**" location="/query/" />
+
+    <!-- Каталог, где хранится стартовая и другие страницы -->
+    <bean class = "org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name = "prefix" value = "/WEB-INF/jsp/" />
+        <property name = "suffix" value = ".jsp" />
+    </bean>
+
+    <!-- JNDI -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:jboss/datasources/PostgreDS"/>
+    </bean>
+
+    <!-- Default configuration for Hibernate -->
+    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+
+    <!-- Configure the entity manager factory bean -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
+        <!-- JPA properties -->
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <!-- Base package of your entities -->
+        <property name="packagesToScan" value="com.dls.base.entity"/>
+    </bean>
+
+    <!-- Transaction manager bean -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- Enable annotation driven transaction management -->
+    <tx:annotation-driven/>
+
+    <!--
+      Spring Data JPA and set the base package of the repository interfaces
+    -->
+    <jpa:repositories base-package="com.dls.base.repository"/>
+
+    <!-- Spring Security -->
+
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/" access="permitAll"/>
+        <security:intercept-url pattern="/login" access="permitAll"/>
+        <security:intercept-url pattern="/dls" access="hasAnyRole('ADMINISTRATOR', 'ADMINISTRATOR_OF_EDUCATIONAL_PROCESS', 'CURATOR', 'STUDENT')"/>
+
+        <security:form-login
+                login-page="/login"
+                default-target-url="/dls"
+                authentication-failure-url="/login?error"
+                username-parameter="username"
+                password-parameter="password"/>
+        <security:logout logout-success-url="/login?logout"/>
+    </security:http>
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="personDetailsServiceImpl">
+            <security:password-encoder ref="encoder"></security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="personDetailsServiceImpl" class="com.dls.base.service.PersonDetailsServiceImpl"></bean>
+
+    <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg name="strength" value="11"/>
+    </bean>
+
+    <!-- Spring Validator -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:validation</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

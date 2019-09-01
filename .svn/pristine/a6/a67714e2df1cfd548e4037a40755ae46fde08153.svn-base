@@ -1,0 +1,37 @@
+<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters: 'false'">
+	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters: 'false'">
+		<div data-dojo-type="dijit/layout/ContentPane" class="borderNone header" data-dojo-props="region: 'top'">
+			<table height="50px" width="100%">
+				<tr>
+					<td class="logo"></td>
+					<td width="5px"></td>
+					<td width="210px">
+						<div class="upper_title">Система обучения персонала</div>
+						<hr>
+						<div class="lower_title">Всё под контролем</div>
+					</td>
+					<td></td>
+					<td width="210px">
+						<span class="upper_title" style="float: right; margin-right: 30px;">
+                            <a data-dojo-attach-point="logout" style="color: #4167b0;">Выйти</a>
+                        </span>
+                        <span class="upper_title" style="float: right; margin-right: 15px;">
+                            <a href="#" style="color: #4167b0;" data-dojo-attach-point="username">Безымянный</a>
+                        </span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design: 'sidebar', region: 'center', gutters: 'false'">
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'left', splitter: true,	style: {width:'15%'}">
+				<div data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props="style: {height:'50%'}">
+					<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Каталог'" data-dojo-attach-point="catalogContainer"></div>
+				</div>
+				<div data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props="style: {height:'50%'}">
+					<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Дополнительно'" data-dojo-attach-point="extraContainer"></div>
+				</div>
+			</div>
+			<div data-dojo-type="dijit/layout/TabContainer" class="borderNone" data-dojo-props="region: 'center', tabPosition: 'top'" data-dojo-attach-point="tabContainer"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+package com.dls.base.controller;
+
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+public class PersonNotLoggedException extends UsernameNotFoundException {
+
+    public PersonNotLoggedException(String msg) {
+		super(msg);
+    }
+}

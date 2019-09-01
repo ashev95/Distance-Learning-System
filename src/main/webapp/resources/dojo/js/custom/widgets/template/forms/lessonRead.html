@@ -1,0 +1,148 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/layout/ContentPane">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_template'>Шаблон</span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='component_template'>${response.attributes.templateLesson.value.name.value} (Версия ${response.attributes.templateLesson.value.version.value})</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_name'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='component_name'>${response.attributes.name.value}</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_description'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='component_description'>${response.attributes.description.value}</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_status'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_status'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_group'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_group'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_curator'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_curator'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateStart'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateStart'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateEnd'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateEnd'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateEnd'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateEnd'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_author'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_author'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateCreate'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateCreate'></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table style="padding: 10px; width: 100%;">
+			<tr>
+				<td colspan="2">
+					<div data-dojo-type="widgets/GridWidget" data-dojo-props="formWidget:this" style="padding-left:8px">
+					</div>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

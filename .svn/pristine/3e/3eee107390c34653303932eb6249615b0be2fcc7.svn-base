@@ -1,0 +1,9 @@
+package com.dls.base;
+
+public class ViewEntity {
+
+	public long id;
+	public String name;
+	public String type;
+
+}

@@ -1,0 +1,26 @@
+package com.dls.base.service;
+
+import com.dls.base.entity.Person;
+import com.dls.base.repository.PersonDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Service
+@Transactional
+public class PersonService {
+ 
+    @Autowired
+	private PersonDao dao;
+ 
+    public List<Person> findAll() {
+        return dao.findAll();
+    }
+
+	public Person findById(long id) {
+		return dao.findById(id);
+	}
+
+}

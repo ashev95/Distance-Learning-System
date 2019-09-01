@@ -1,0 +1,11 @@
+package com.dls.base.ui.form;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+public class FormTemplate {
+
+	public ArrayList<FormButton> buttons;
+    public Map<String, Object> attributes;
+
+}

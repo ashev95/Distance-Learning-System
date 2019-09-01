@@ -1,0 +1,37 @@
+package com.dls.base.controller;
+
+import com.dls.base.entity.Person;
+import com.dls.base.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.annotation.PostConstruct;
+
+@Controller
+@RequestMapping("/")
+public class MainController
+{
+
+	private final PersonRepository personRepository;
+
+	@Autowired
+	MainController(PersonRepository personRepository) {
+		this.personRepository = personRepository;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String main()
+	{
+		return "index";
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+		Person person = new Person();
+		person.setName("Администратор");
+		this.personRepository.save(person);
+	}
+
+}

@@ -1,0 +1,43 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/layout/ContentPane">
+        <table style="padding: 10px;">
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Название:</span>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.name}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Урок:</span>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.parent.name}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Описание:</span>
+                    </div>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table>
+        <div style="padding-left: 20px;" data-dojo-type="dijit/layout/ContentPane">
+            <span>${response.data.description}</span>
+        </div>
+	</div>
+</div>

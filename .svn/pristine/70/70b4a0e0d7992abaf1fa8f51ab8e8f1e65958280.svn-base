@@ -1,0 +1,26 @@
+{
+  "template": {
+    "person_all": {
+      "buttons": [
+        {
+          "label": "Новый сотрудник",
+          "iconClass": "add-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.createForm({type: 'person', title: 'Новый сотрудник', canCreateChild: true, selRows: this.gridView.selection.getSelected()});"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    }
+  }
+}

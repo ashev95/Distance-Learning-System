@@ -1,0 +1,75 @@
+package com.dls.base.controller;
+
+import com.dls.base.repository.PersonRepository;
+import com.dls.base.ui.sidebar.extra.TreeItem;
+import com.dls.base.ui.sidebar.extra.TreeItem;
+import com.dls.base.ui.sidebar.extra.TreeRoot;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.*;
+import java.util.ArrayList;
+
+@RestController
+@RequestMapping("view/sidebar")
+public class SidebarRestController
+{
+
+	private final PersonRepository personRepository;
+
+	@Autowired
+	private ResourceLoader resourceLoader;
+
+	@Autowired
+    SidebarRestController(PersonRepository personRepository) {
+		this.personRepository = personRepository;
+	}
+
+	@GetMapping(value = "/extra", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+	public String getExtra() {
+
+		TreeRoot treeRoot = null;
+		try {
+			XmlMapper xmlMapper = new XmlMapper();
+			final Resource fileResource = resourceLoader.getResource("/WEB-INF/sidebar_config/extra.xml");
+			File file = fileResource.getFile();
+			String xml = inputStreamToString(new FileInputStream(file));
+			treeRoot = xmlMapper.readValue(xml, TreeRoot.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		String json = null;
+
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+			json = mapper.writeValueAsString(treeRoot);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return json;
+	}
+
+	public static String inputStreamToString(InputStream is) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		String line;
+		BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF8"));
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+		}
+		br.close();
+		return sb.toString();
+	}
+
+}

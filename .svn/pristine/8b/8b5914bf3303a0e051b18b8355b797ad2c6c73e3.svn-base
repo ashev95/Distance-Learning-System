@@ -1,0 +1,54 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+        <table style="padding: 10px;">
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <label for="name">Название:</label>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <input data-dojo-attach-point='name' type="text" name="name" required="true" data-dojo-type="dijit/form/ValidationTextBox" missingMessage="Неверно заполнено поле" value="${response.data.name}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Вопрос:</span>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.parent.name}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <label for="valid">Верный:</label>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <input data-dojo-attach-point='valid' name="valid" data-dojo-type="dijit/form/CheckBox" checked="${response.data.valid}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <label for="description">Описание:</label>
+                    </div>
+                </td>
+                <td>
+                    <div style="padding: 10px;" data-dojo-type="dijit/layout/ContentPane">
+                        <input data-dojo-attach-point='description' type="text" name="description" data-dojo-type="dijit/form/ValidationTextBox" missingMessage="Неверно заполнено поле" value="${response.data.description}"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+	</div>
+</div>

@@ -1,0 +1,38 @@
+<div data-dojo-type="dijit/form/Form" id="mainFormId">
+	<table style="padding: 10px;">
+		<tr>
+			<td>
+				<div data-dojo-type="dijit/layout/ContentPane">
+					<label>Блок</label>
+				</div>
+			</td>
+			<td>
+				<div data-dojo-type="dijit/layout/ContentPane">
+					<input id="block_dialog"
+							name="block"
+							required="true"
+							data-dojo-type="dijit/form/NumberTextBox"
+							data-dojo-props='constraints:{min:1,max:99},
+						   invalidMessage:"Поле Блок должно содержать целое положительное число в диапазоне от 1 до 99"'
+							rangeMessage="Поле Блок должно содержать целое положительное число в диапазоне от 1 до 99"
+							value="1"/>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div data-dojo-type="dijit/layout/ContentPane">
+					<label>Тип блока</label>
+				</div>
+			</td>
+			<td>
+				<div data-dojo-type="dijit/layout/ContentPane">
+					<div data-dojo-type="dijit/form/Form" id="type_dialog">
+						<input type="radio" data-dojo-type="dijit/form/RadioButton" name="type" id="type_1" value="1"/><label for="type_1">Последовательный</label> </br>
+						<input type="radio" data-dojo-type="dijit/form/RadioButton" name="type" id="type_2" value="2"/><label for="type_2">Параллельный</label>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>

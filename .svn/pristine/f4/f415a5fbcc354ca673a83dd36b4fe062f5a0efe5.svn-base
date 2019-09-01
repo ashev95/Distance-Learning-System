@@ -1,0 +1,110 @@
+define([
+    "dojo/_base/declare",
+	"dijit/layout/ContentPane",
+	"dojox/grid/TreeGrid",
+	"dojo/data/ItemFileReadStore",
+	"dijit/tree/ForestStoreModel",
+	"dijit/MenuBar",
+	"dijit/MenuItem",
+	"dijit/ConfirmDialog",
+	"dojo/request",
+	"dojo/dom-style"
+	
+], function(declare, ContentPane, TreeGrid, ItemFileReadStore, ForestStoreModel, MenuBar, MenuItem, ConfirmDialog, request, domStyle){
+    return declare([ContentPane], {
+		id: "",
+		url: "",
+		baseClass: 'GridWidget',
+		appWidget: undefined,
+		type: "",
+		newFormTitle: "",
+		newFormType: "",
+		response: undefined,
+		menuBar: undefined,
+		gridView: undefined,
+        parentForm: undefined,
+
+		computeHideFunction: function (){
+			var selRows = this.gridView.selection.getSelected();
+			this.menuBar.getChildren().some(function(button) {
+				if (button.computeHF(selRows)){
+					domStyle.set(button.domNode, "display", "none");
+				}else{
+					domStyle.set(button.domNode, "display", "block");
+				}
+			});
+		},
+
+		buildRendering: function(){
+            this.inherited(arguments);
+			var response = this.response;
+			var gridView = new TreeGrid({
+				treeModel: new ForestStoreModel({
+					store: new ItemFileReadStore({data:response.data}),
+					childrenAttrs: ['children']
+				}),
+                autoExpand: true,
+				structure: response.structure,
+				defaultOpen: true,
+				class:"gridView",
+				customRefresh: function(){
+					var thisContext = this;
+					request(this.thisWidget.url, {
+						handleAs: "json"
+					}).then(function(response){
+						thisContext.selection.clear();
+						thisContext.setModel(
+							new ForestStoreModel({
+								store: new ItemFileReadStore({
+									data:response.data
+								}),
+								childrenAttrs: ['children']
+							})
+						);
+						thisContext.thisWidget.computeHideFunction();
+					});
+				},
+				onClick: function(){
+					this.thisWidget.computeHideFunction();
+				},
+				onDblClick: function(evt){
+					var selRows = this.selection.getSelected();
+					if (!!selRows && !!selRows[0]){
+						selRows[0].editMode = false;
+						this.appWidget.openTabForm(false, selRows[0]);
+					}
+				},
+				thisWidget: this,
+				appWidget: this.appWidget,
+				newFormType: this.newFormType,
+				newFormTitle: this.newFormTitle
+				
+			});
+			this.gridView = gridView;
+			
+			var pMenuBar = new MenuBar({});
+			this.menuBar = pMenuBar;
+			
+			var thisContext = this;
+			if (this.appWidget.viewConfig.template[this.response.uid]){
+                this.response.buttons = this.appWidget.viewConfig.template[this.response.uid].buttons;
+			}
+			if (!!this.response.buttons && !!this.response.buttons[0]){
+                dojo.clone(this.response.buttons).reverse().some(function(button) {
+                    pMenuBar.addChild(
+                        new MenuItem({
+                            label: button.label,
+                            iconClass: button.iconClass,
+                            onClick: function (item) {eval("(function(){" + button.onClick + "})").call(thisContext);},
+                            appWidget: this.appWidget,
+                            computeHF: function (items) {return eval("(function(selectedRows){" + button.hideFunction + "})").call(thisContext, items);}
+                        })
+                    );
+                });
+			}
+			this.computeHideFunction();
+			this.addChild(pMenuBar);
+			this.addChild(gridView);
+		}
+    });
+});

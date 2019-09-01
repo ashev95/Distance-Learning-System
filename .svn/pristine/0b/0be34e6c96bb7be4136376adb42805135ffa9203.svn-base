@@ -1,0 +1,67 @@
+package com.dls.base.controller;
+
+import com.dls.base.entity.Person;
+import com.dls.base.repository.PersonRepository;
+import com.dls.base.ui.view.ViewEntity;
+import com.dls.base.ui.view.ViewTemplate;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.*;
+import java.util.*;
+
+@RestController
+@RequestMapping("view/person")
+public class ViewRestController
+{
+
+	private final PersonRepository personRepository;
+
+	@Autowired
+	private ResourceLoader resourceLoader;
+
+	@Autowired
+	ViewRestController(PersonRepository personRepository) {
+		this.personRepository = personRepository;
+	}
+
+	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+	public ViewTemplate getAll() {
+		ViewTemplate viewTemplate = null;
+		try {
+			XmlMapper xmlMapper = new XmlMapper();
+			final Resource fileResource = resourceLoader.getResource("/WEB-INF/view_config/extra/person_all.xml");
+			File file = fileResource.getFile();
+			String xml = inputStreamToString(new FileInputStream(file));
+			viewTemplate = xmlMapper.readValue(xml, ViewTemplate.class);
+			viewTemplate.data.items = new ArrayList<ViewEntity>();
+			ViewEntity viewEntity;
+			for (Person person : personRepository.findAll()){
+				viewEntity = new ViewEntity();
+				viewEntity.id = person.getId();
+				viewEntity.name = person.getSurname() + " " + person.getName() + " " + person.getMiddlename();
+				viewEntity.type = person.getClass().getSimpleName().toLowerCase();
+				viewTemplate.data.items.add(viewEntity);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return viewTemplate;
+	}
+
+	public static String inputStreamToString(InputStream is) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		String line;
+		BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF8"));
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+		}
+		br.close();
+		return sb.toString();
+	}
+
+}

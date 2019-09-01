@@ -1,0 +1,106 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="uname">Краткое название:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='uname' type="text" name="uname" required="true" data-dojo-type="dijit/form/ValidationTextBox" missingMessage="Неверно заполнено поле" value="${response.data.uname}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="name">Фамилия:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='lname' type="text" name="lname" value="${response.data.lname}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="fname">Имя:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='fname' type="text" name="fname" value="${response.data.fname}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="pname">Отчество:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='pname' type="text" name="pname" value="${response.data.pname}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="pname">Должность:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='post' type="text" name="post" value="${response.data.post}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div hideFunction="function (response){return (!response.data.parent || !response.data.parent.organization || !response.data.parent.organization.id || response.data.parent.organization.id == '' || response.data.parent.organization.id == 0 || !response.data.parent.organization.uname || !response.data.parent.organization.type)}" data-dojo-type="dijit/layout/ContentPane">
+						<span>Организация:</span>
+					</div>
+				</td>
+				<td>
+					<div hideFunction="function (response){return (!response.data.parent || !response.data.parent.organization || !response.data.parent.organization.id || response.data.parent.organization.id == '' || response.data.parent.organization.id == 0 || !response.data.parent.organization.uname || !response.data.parent.organization.type)}" data-dojo-type="dijit/layout/ContentPane">
+						<label style="display:none" for="parent.organization.id">Скрытая Организация:</label>
+						<input style="display:none" type="text" name="parent.organization.id" readonly value="${response.data.parent.organization.id}"/>
+						<span>${response.data.parent.organization.uname}</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div hideFunction="function (response){return (!response.data.parent || !response.data.parent.department || !response.data.parent.department.id || response.data.parent.department.id == '' || response.data.parent.department.id == 0 || !response.data.parent.department.uname || !response.data.parent.department.type)}" data-dojo-type="dijit/layout/ContentPane">
+						<label style="display:none" for="parent.department.id">Скрытое Подразделение:</label>
+						<input style="display:none" type="text" name="parent.department.id" readonly value="${response.data.parent.department.id}"/>
+						<span>Подразделение:</span>
+					</div>
+				</td>
+				<td>
+					<div hideFunction="function (response){return (!response.data.parent || !response.data.parent.department || !response.data.parent.department.id || response.data.parent.department.id == '' || response.data.parent.department.id == 0 || !response.data.parent.department.uname || !response.data.parent.department.type)}" data-dojo-type="dijit/layout/ContentPane">
+						<span>${response.data.parent.department.uname}</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="legaladdr">Информация:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='info' type="text" name="info" value="${response.data.info}"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

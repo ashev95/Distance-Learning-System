@@ -1,0 +1,602 @@
+define([
+    "dojo/_base/declare",
+    "dijit/_WidgetBase",
+    "dijit/_TemplatedMixin",
+	"dijit/_WidgetsInTemplateMixin",
+	"dojo/parser",
+	"dojo/ready",
+
+	"dojo/data/ItemFileReadStore",
+	"dijit/tree/ForestStoreModel",
+	"dijit/Tree",
+
+	"dojo/request",
+
+	"widgets/FormWidget",
+	"widgets/GridWidget",
+	"dojo/query",
+	"dojo/dom-class",
+    "dijit/ConfirmDialog",
+    "dijit/Dialog",
+    "dojo/store/JsonRest",
+
+    "dijit/layout/ContentPane",
+
+    "dijit/form/Button",
+
+    "dojo/on",
+
+    "dojo/request/xhr",
+
+    "dijit/form/TextBox",
+
+    "dijit/layout/BorderContainer",
+
+    "dijit/layout/ContentPane",
+
+    "dijit/layout/AccordionContainer",
+
+    "dijit/layout/TabContainer",
+
+    "dojo/dom",
+
+    "dojo/cookie",
+
+    "dojo/_base/json",
+
+    "dojo/text!./config/view_config.json",
+    "dojo/text!./config/form_config.json",
+
+    "dojo/text!./template/AppWidget.html"
+	
+], function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, parser, ready, ItemFileReadStore, ForestStoreModel, Tree, request, FormWidget, GridWidget,
+            query, domClass, ConfirmDialog, Dialog, JsonRest, ContentPane, Button, on, xhr, TextBox, BorderContainer, ContentPane, AccordionContainer, TabContainer,
+            dom, cookie, json, viewConfigText, formConfigText, template
+){
+    declare("AppWidget", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+		
+		templateString: template,
+		_newTabId: 0,
+		tabContainer: undefined,
+        catalogContainer: undefined,
+        logout: "",
+        username: "",
+        extraContainer: undefined,
+        viewConfig: json.fromJson(viewConfigText),
+        formConfig: json.fromJson(formConfigText),
+
+        _getNewTabId: function (){
+            return (this._newTabId++);
+        },
+
+		_getTabById: function (array, value) {
+			var foundEntry;
+			array.some(function(entry) {
+				if (entry.id == value) {
+				   foundEntry = entry;
+				   return true;
+				}
+			});
+			return foundEntry;
+		},
+
+		openTabGrid: function (item) {
+			var appWidget = this;
+			var newTabId = 'view_' + item.type + '_' + item.uid; //view_catalog_1 or view_extra_structure
+			var tab = this._getTabById(this.tabContainer.getChildren(), newTabId);
+            var url = 'view/' + item.uid // catalog/1 or extra/structure
+			if (!tab){
+				request(url, {
+					handleAs: "json"
+				}).then(function(response){
+					tab = new GridWidget({
+						id: newTabId,
+						title: item.name[0],
+						url: url,
+						closable: true,
+						response: response,
+						isNew: false,
+						appWidget: appWidget
+					});
+
+					/* Для вкладки с гридом добавим класс со стилем */
+					/* НАЧАЛО */
+					appWidget.tabContainer.addChild(tab);
+					var t = query(".dijitTabInner.dijitTabContent.dijitTab", appWidget.tabContainer.domNode);
+					t.some(function(entry) {
+						var tt = query("#" + newTabId, entry.domNode);
+						if (tt[0]){
+							domClass.add(entry, "myDijitTab");
+						}
+					});
+					/* КОНЕЦ */
+					appWidget.tabContainer.selectChild(tab);
+				});
+			}else{
+				this.tabContainer.selectChild(tab);
+			}
+		},
+
+		openTabForm: function (isNew, item){
+            if (item.id && item.id[0]){
+                if(item.id[0].toString().indexOf('_')){
+                    item.id[0] = item.id[0].toString().split('_').pop();
+                }
+            }
+            if (item.parent && item.parent.id && item.parent.id[0]){
+                if(item.parent.id[0].toString().indexOf('_')){
+                    item.parent.id[0] = item.parent.id[0].toString().split('_').pop();
+                }
+            }
+            var newTabId = '';
+            var tab = undefined;
+            var appWidget = this;
+            if (isNew){
+                request(('form/' + item.type[0] + '/' + '0'), {
+                    method: "get",
+                    handleAs: "json"
+                }).then(function(response){
+                    var newTabId = 'new_form_' + item.type[0] + '_' + appWidget._getNewTabId();
+                    tab = new FormWidget({
+                        id: newTabId,
+                        title: item.name[0],
+                        closable: true,
+                        response: response,
+                        isNew: isNew,
+                        template:item.type[0],
+                        editMode: (!!item.editMode),
+                        appWidget: appWidget
+                    });
+                    appWidget.tabContainer.addChild(tab);
+                    appWidget.tabContainer.selectChild(tab);
+                }, function (err){
+                    var content = err.message;
+                    if (err.responseText){
+                        content = err.responseText;
+                    }
+                    var dialog = new Dialog({
+                        title: "Сообщение",
+                        content: content,
+                        style: "width: 300px"
+                    });
+                    dialog.show();
+                });
+			}else{
+				newTabId = 'form_' + item.type[0] + '_' + item.id[0];
+                if (item.reopen){
+                    tab = this._getTabById(this.tabContainer.getChildren(), item.tabId);
+                }else{
+                    tab = this._getTabById(this.tabContainer.getChildren(), newTabId);
+                }
+				if (!tab || item.editMode || item.reopen){
+                    var store = new JsonRest({
+                        target: 'form/' + item.type[0]
+                    });
+                    store.get(item.id[0]).then(function(response){
+                        if (tab){
+                            var index = appWidget.tabContainer.getIndexOfChild(tab);
+                            appWidget.closeTab(tab);
+                            tab = new FormWidget({
+                                id: newTabId,
+                                title: item.name[0],
+                                closable: true,
+                                response: response,
+                                isNew: false,
+                                template:item.type[0],
+                                editMode: (!!item.editMode),
+                                appWidget: appWidget
+                            });
+                            appWidget.tabContainer.addChild(tab, index);
+                            appWidget.tabContainer.selectChild(tab);
+                        }else{
+                            tab = new FormWidget({
+                                id: newTabId,
+                                title: item.name[0],
+                                closable: true,
+                                response: response,
+                                isNew: false,
+                                template: item.type[0],
+                                editMode: (!!item.editMode),
+                                appWidget: appWidget
+                            });
+                            appWidget.tabContainer.addChild(tab);
+                            appWidget.tabContainer.selectChild(tab);
+                        }
+                    }, function (err){
+                        var dialog = new Dialog({
+                            title: "Сообщение",
+                            content: err.message,
+                            style: "width: 300px"
+                        });
+                        dialog.show();
+                    });
+				}else{
+					this.tabContainer.selectChild(tab);
+				}
+			}
+		},
+
+        refreshGrids: function (){
+            this.tabContainer.getChildren().some(function(entry) {
+                if (entry.baseClass == "GridWidget"){
+                    entry.gridView.customRefresh()
+                }
+            });
+        },
+
+		_buildSidebarTree: function(type){
+			return (new Tree({
+				model:new ForestStoreModel({
+                    store: new ItemFileReadStore({url: 'view/sidebar/' + type}),
+					childrenAttrs: ["children"]
+				}),
+				showRoot:false,
+				openOnClick:true,
+				onClick: function (item, node, evt) {
+					switch (this.type){
+						case 'catalog':
+							item.uid = item.id[0];
+							break;
+						case 'extra':
+							//item.uid = item.uid;
+							break;
+						default:
+							item.uid = '';
+					}
+                    item.type = this.type;
+					this.appWidget.openTabGrid(item);
+				},
+				getIconClass: function(item, opened){return '';},
+				appWidget: this,
+				type: type
+			}));
+		},
+
+        createForm: function(params){
+            if (!!params.selRows && !!params.selRows[0]){
+                if(params.selRows[0].canBeParent && params.canCreateChild){
+                    //create child
+                    if (params.selRows[0].skipDialog){
+                        this.openTabForm(true, {type: {0: params.type}, name: {0: params.title}, editMode: true, parent: params.selRows[0]});
+                    }else{
+                        var dialog = new ConfirmDialog({
+                            title: "Сообщение",
+                            content: "Создать дочерним?",
+                            style: "width: 300px",
+                            appWidget:this,
+                            openOnCancel: params.openOnCancel
+                        });
+                        dialog.set("buttonOk","Да");
+                        dialog.set("buttonCancel","Нет");
+                        dialog.on('execute', function() {
+                            this.appWidget.openTabForm(true, {type: {0: params.type}, name: {0: params.title}, editMode: true, parent: params.selRows[0]});
+                        });
+                        dialog.on('cancel', function() {
+                            if (this.openOnCancel){
+                                this.appWidget.openTabForm(true, {type: {0:params.type}, name: {0:params.title}, editMode:true});
+                            }
+                        });
+                        dialog.show();
+                    }
+                }else{
+                    //create parent
+                    this.openTabForm(true, {type: {0:params.type}, name: {0:params.title}, editMode:true});
+                }
+            }else{
+                //create parent
+                this.openTabForm(true, {type: {0:params.type}, name: {0:params.title}, editMode:true});
+            }
+        },
+
+        saveForm: function(formWidget){
+            if (formWidget.validate()){
+                var sendData = formWidget.getFormObject();
+                var glFormWidget = formWidget;
+                var thisContext = this;
+                var store = new JsonRest({
+                    target: "form/" + formWidget.template
+                });
+                store.put(
+                    sendData,
+                    {id: formWidget.response.attributes.id.value}
+                ).then(function(response){
+                    thisContext.openTabForm(false, {
+                        type: {0:response.data.type},
+                        name: {0:( (response.data.uname) ? response.data.uname : response.data.name)},
+                        editMode:true,
+                        reopen: glFormWidget.isNew,
+                        id: {0: response.data.id},
+                        tabId: glFormWidget.id
+                    });
+                    //Обновить каталог в левой панели
+                    if (glFormWidget.response.data.type === 'category'){
+                        thisContext.refreshSidebar('catalog');
+                    }
+                    //Обновить все открытые представления
+                    thisContext.refreshGrids();
+                }, function (err){
+                    // Handle the error condition
+                }, function(evt){
+                // Handle a progress event from the request if the
+                // browser supports XHR2
+                });
+            }
+        },
+
+        refreshSidebar: function(type){
+            switch (type){
+                case 'catalog':
+                    this.catalogContainer.destroyDescendants()
+                    this.catalogContainer.addChild(this._buildSidebarTree(type));
+                    break;
+                case 'extra':
+                    this.extraContainer.destroyDescendants()
+                    this.extraContainer.addChild(this._buildSidebarTree(type));
+                    break;
+                default:
+            }
+        },
+
+        deleteForm: function(formWidget){
+            var dialog = new ConfirmDialog({
+                title: "Сообщение",
+                content: "Вы действительно хотите удалить элемент?",
+                style: "width: 300px",
+                appWidget:this
+            });
+            dialog.set("buttonOk","Да");
+            dialog.set("buttonCancel","Нет");
+            dialog.on('execute', function() {
+                var store = new JsonRest({
+                    target: "form/" + formWidget.template
+                });
+                var glFormWidget = formWidget;
+                var thisContext = this;
+                store.remove(formWidget.response.attributes.id.value).then(function(response){
+                    thisContext.appWidget.closeTab(formWidget);
+                        //Обновить каталог в левой панели
+                        if (glFormWidget.response.data.type == 'category'){
+                            thisContext.appWidget.refreshSidebar('catalog');
+                        }
+                        //Обновить все открытые представления
+                        thisContext.appWidget.refreshGrids();
+                }, function (err){
+                        var content = "Ошибка удаления";
+                        if (err.responseText){
+                            content += (":" + err.responseText);
+                        }
+                        var dialog = new Dialog({
+                            title: "Сообщение",
+                            content: content,
+                            style: "width: 300px"
+                        });
+                        dialog.show();
+                    });
+            });
+            dialog.on('cancel', function() {
+
+            });
+            dialog.show();
+        },
+
+        editForm: function(formWidget){
+            this.openTabForm(false, {type: {0:formWidget.template}, id: {0:formWidget.response.attributes.id.value}, name: {0:formWidget.title}, editMode: true})
+        },
+
+		closeTab: function(tab){
+			var cur = tab;
+			var prev = tab;
+			while (cur.declaredClass != "dijit.layout.TabContainer"){
+				prev = cur;
+				cur = cur.getParent();
+			}
+			var tabContainer = cur;
+			var tab = prev;
+			tabContainer.removeChild(tab);
+			tab.destroy();
+		},
+
+        runSingleDialog: function (url, callback){
+
+            var selected = undefined;
+
+            var cp = new ContentPane({style:{overflow: "hidden"}});
+
+            var cp1 = new ContentPane({style:{padding:"0px", border: "1px solid #759dc0"}});
+            var cp2 = new ContentPane({style:{padding:"0px"}});
+
+            var tree = new Tree({
+                model: new ForestStoreModel({
+                    store: new ItemFileReadStore({url:url}),
+                    childrenAttrs: ["children"]
+                }),
+                class:"dialogGridView",
+                showRoot:false,
+                openOnClick:true,
+                onClick: function (item, node, evt) {
+                    selected = item;
+                },
+                getIconClass: function(item, opened){return '';}
+            })
+
+            cp1.addChild(tree);
+
+            var cpBtnOk = new ContentPane({
+                class: "dialogBtn"
+            });
+
+            var btnOk = new Button({
+                label: "ОК"
+            });
+
+            cpBtnOk.addChild(btnOk);
+
+            var cpBtnCancel = new ContentPane({
+                class: "dialogBtn"
+            });
+
+            var btnCancel = new Button({
+                label: "Отмена"
+            });
+
+            cpBtnCancel.addChild(btnCancel);
+
+            cp2.addChild(cpBtnOk);
+            cp2.addChild(cpBtnCancel);
+
+            cp.addChild(cp1);
+            cp.addChild(cp2);
+
+            var dialog = new Dialog({
+                style: "width: 300px; height: 490px",
+                content: cp
+            });
+
+            on(btnOk, "click", function(e){
+                if (!selected){
+                    var messageDialog = new Dialog({
+                        title: "Сообщение",
+                        content: "Необходимо выбрать элемент",
+                        style: "width: 300px"
+                    });
+                    messageDialog.show();
+                }else{
+                    dialog.destroy();
+                    callback(selected);
+                }
+            });
+
+            on(btnCancel, "click", function(e){
+                dialog.destroy();
+            });
+
+            dialog.on('cancel', function() {
+
+            });
+
+            dialog.show();
+        },
+
+        runChangePasswordDialog: function (data){
+
+            var cp = new ContentPane({style:{overflow: "hidden"}});
+
+            var cp1 = new ContentPane({style:{padding:"0px", border: "1px solid #759dc0"}});
+            var cp2 = new ContentPane({style:{padding:"0px"}});
+
+            var field = new TextBox({
+                style: {width: "99%"}
+            });
+
+            cp1.addChild(field);
+
+            var cpBtnOk = new ContentPane({
+                class: "dialogBtn"
+            });
+
+            var btnOk = new Button({
+                label: "ОК"
+            });
+
+            cpBtnOk.addChild(btnOk);
+
+            var cpBtnCancel = new ContentPane({
+                class: "dialogBtn"
+            });
+
+            var btnCancel = new Button({
+                label: "Отмена"
+            });
+
+            cpBtnCancel.addChild(btnCancel);
+
+            cp2.addChild(cpBtnOk);
+            cp2.addChild(cpBtnCancel);
+
+            cp.addChild(cp1);
+            cp.addChild(cp2);
+
+            var dialog = new Dialog({
+                title: "Изменение пароля",
+                style: "width: 300px; height: 490px",
+                content: cp
+            });
+
+            on(btnOk, "click", function(e){
+                if (field.value.trim() === ''){
+                    var messageDialog = new Dialog({
+                        title: "Сообщение",
+                        content: "Необходимо ввести пароль",
+                        style: "width: 300px"
+                    });
+                    messageDialog.show();
+                }else{
+                    dialog.destroy();
+                    var sendData = {
+                        password: field.value,
+                        personid: data.id
+                    };
+                    request("query/auth", {
+                        method: ("post"),
+                        data: {form: JSON.stringify(sendData)},
+                        handleAs: "json"
+                    }).then(function(response){
+                        var messageDialog = new Dialog({
+                            title: "Сообщение",
+                            content: "Пароль успешно изменён",
+                            style: "width: 300px"
+                        });
+                        messageDialog.show();
+                    }, function (err){
+                        var content = err.message;
+                        if (err.responseText){
+                            content = err.responseText;
+                        }
+                        var dialog = new Dialog({
+                            title: "Сообщение",
+                            content: content,
+                            style: "width: 300px"
+                        });
+                        dialog.show();
+                    });
+                }
+            });
+
+            on(btnCancel, "click", function(e){
+                dialog.destroy();
+            });
+
+            dialog.on('cancel', function() {
+
+            });
+
+            dialog.show();
+        },
+
+		postCreate: function(){
+			this.catalogContainer.addChild(this._buildSidebarTree('catalog'));
+			this.extraContainer.addChild(this._buildSidebarTree('extra'));
+            this.logout.href = this.logout.baseURI + "/logout";
+            var personId = cookie('personid');
+            var thisContext = this;
+            request('query/form/person/' + personId, {
+                method: "get",
+                handleAs: "json"
+            }).then(function(response){
+                thisContext.username.innerText = response.data.uname;
+                on(thisContext.username, "click", function(e){
+                    e.preventDefault();
+                    thisContext.openTabForm(false, {
+                        type: {0:response.data.type},
+                        name: {0:( (response.data.uname) ? response.data.uname : response.data.name)},
+                        editMode:false,
+                        id: {0: response.data.id}
+                    });
+                });
+
+            });
+
+			this.inherited(arguments);
+		}
+	});
+});

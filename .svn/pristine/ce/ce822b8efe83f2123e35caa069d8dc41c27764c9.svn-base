@@ -1,0 +1,24 @@
+#Считывать ли настройки
+properties.read = true
+
+#Описание пользователя Администратор
+admin.username = Administrator
+admin.password = 12345
+admin.email = admin@gmail.com
+admin.surname = Администраторов
+admin.name = Администратор
+admin.middlename = Администраторович
+
+#Описание ролей
+
+roles.admin.name = Администратор
+roles.admin.code = ADMINISTRATOR
+
+roles.admin_of_educational_process.name = Администратор учебного процесса
+roles.admin_of_educational_process.code = ADMINISTRATOR_OF_EDUCATIONAL_PROCESS
+
+roles.curator.name = Куратор
+roles.curator.code = CURATOR
+
+roles.student.name = Ученик
+roles.student.code = STUDENT

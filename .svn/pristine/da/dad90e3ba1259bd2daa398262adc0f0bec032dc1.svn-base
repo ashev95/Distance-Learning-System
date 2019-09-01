@@ -1,0 +1,16 @@
+# Авторизация
+AbstractUserDetailsAuthenticationProvider.badCredentials=Неправильный логин или пароль
+PersonNotFound=Неправильный логин или пароль
+
+# Карточка "Пользователь"
+form.user.username.required=Поле Логин обязательно для заполнения
+form.user.username.size=Логин должен содержать не менее 8 и не более 16 символов
+form.user.email.required=Поле Почта обязательно для заполнения
+form.user.email.notValid=Поле Почта заполнено некорректно
+form.user.email.size=Почта должна содержать не менее 5 и не более 320 символов
+form.user.surname.required=Поле Фамилия обязательно для заполнения
+form.user.surname.size=Фамииля должна содержать не менее 1 и не более 100 символов
+form.user.name.required=Поле Имя обязательно для заполнения
+form.user.name.size=Имя должно содержать не менее 1 и не более 100 символов
+form.user.middlename.required=Поле Отчество обязательно для заполнения
+form.user.middlename.size=Отчество должно содержать не менее 1 и не более 100 символов

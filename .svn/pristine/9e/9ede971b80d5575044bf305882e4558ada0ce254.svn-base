@@ -1,0 +1,139 @@
+.dialogGridView{
+    height:400px !important;
+}
+
+.dialogBtn > SPAN > SPAN > SPAN {
+    width: 60px;
+}
+
+.dialogBtn{
+    width: 50%;
+    float: left;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+    text-align: center;
+}
+
+html {
+	
+}
+
+/* Фоновый цвет */
+body{
+	background-color: #E3F0FC !important;
+}
+
+.dijitGutter{
+	background-color: #E3F0FC !important;
+}
+
+.header{
+	background-color: #E3F0FC !important;
+}
+
+hr {
+  border: none;
+  border-top: 1px dotted #759dc0;
+  height: 1px;
+}
+
+.upper_title{
+	font-size: 14px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.lower_title{
+	font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.logo{
+	background-image:url(../dojo/images/logo.png);
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 50px;
+}
+
+.borderNone {
+	border-width: 0px !important;
+}
+
+.myDijitTab {
+	background-color: #cfe5fa !important;
+}
+
+.dijitBorderContainer  {
+    height:100%;
+}
+
+.dijitSplitter {
+  background-color: #cfe5fa !important;
+}
+
+.dijitSplitterHover {
+  background: #cfe5fa !important;
+}
+
+/* Влияет на высоту предствления */
+.gridView{
+	height:95% !important;
+}
+
+/* Оцентрирование иконки кнопки грида по высоте */
+.dijitMenuItemIconCell{
+	padding-top: 4px !important;
+}
+
+.refresh-btn-16 {
+	background-image:url(../dojo/images/refresh-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.close-btn-16 {
+	background-image:url(../dojo/images/close-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.edit-btn-16 {
+	background-image:url(../dojo/images/edit-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.delete-btn-16 {
+	background-image:url(../dojo/images/delete-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.save-btn-16 {
+	background-image:url(../dojo/images/save-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.add-btn-16 {
+	background-image:url(../dojo/images/add-btn-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.change-password-16 {
+	background-image:url(../dojo/images/change-password-16.png);
+	width: 16px;
+	height: 16px;
+}
+
+.dijitMenuBar{
+	width:100%;
+	float:right;
+}
+
+.dijitMenuItem{
+	float:right;
+}

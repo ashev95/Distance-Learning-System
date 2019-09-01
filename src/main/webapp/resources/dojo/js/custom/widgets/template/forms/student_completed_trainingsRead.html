@@ -1,0 +1,55 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_student'>Студент:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<script>
+                            require(["widgets/ValidationAttributeWidget"]);
+						</script>
+						<input data-dojo-attach-point="component_student"
+							   name="student"
+							   required="true"
+							   data-dojo-type="ValidationAttributeWidget"
+							   missingMessage="Поле Студент обязательно для заполнения"
+							   readonly
+						></input>
+					</div>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_curator_button_1"
+							onClick="var widget = dijit.byId(dojo.query('*[name=student]')[0].id); var appWidget = this.getParent().getParent().appWidget; appWidget.showCustomDialog('dialog/person/by_role/student', false, (function(selected){widget.setValue(selected)}), (function(selected){var o = {id: {value: selected.cardId[0]}, name: {value: selected.name[0]}}; return o;}));"
+							type="button">...</button>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_curator_button_2"
+							onClick="var widget = dijit.byId(dojo.query('*[name=student]')[0].id); widget.clearValue();"
+							type="button">Х</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_format'>Формат отчёта:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<select data-dojo-attach-point='component_format'
+								name="select_format"
+								data-dojo-type="dijit/form/Select">
+							<option value="0" selected="selected">PDF</option>
+							<option value="1">Excel</option>
+							<option value="2">Word</option>
+						</select>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

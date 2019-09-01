@@ -1,0 +1,45 @@
+package com.dls.base.entity;
+
+import javax.persistence.*;
+
+@Entity
+public class Person {
+ 
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "person_id")
+    private long id;
+  
+    @Column(name = "person_name")
+    private String name;
+ 
+    public long getId(){
+    	return id;
+	}
+
+	public void setId(long id){
+    	this.id = id;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public void setName(String name){
+		this.name = name;
+	}
+
+}
+
+/*
+create table person (
+	person_id bigint NOT NULL,
+	person_name character varying(128) NOT NULL,
+	CONSTRAINT xpkperson PRIMARY KEY (person_id)
+);
+
+insert into person (person_id, person_name) values (1, 'Поьзователь 1');
+insert into person (person_id, person_name) values (2, 'Поьзователь 2');
+insert into person (person_id, person_name) values (3, 'Поьзователь 3');
+
+*/

@@ -1,0 +1,87 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="uname">Краткое название:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='uname' type="text" name="uname" required="true" data-dojo-type="dijit/form/ValidationTextBox" missingMessage="Неверно заполнено поле" value="${response.data.uname}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="name">Полное название:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='name' type="text" name="name" value="${response.data.name}"/>
+					</div>
+				</td>
+			</tr>
+            <tr>
+                <td>
+                    <div hideFunction="function (response){return (!response.data.parent || !response.data.parent.organization || !response.data.parent.organization.id || response.data.parent.organization.id == '' || response.data.parent.organization.id == 0 || !response.data.parent.organization.uname || !response.data.parent.organization.type)}" data-dojo-type="dijit/layout/ContentPane">
+                        <span>Организация:</span>
+                    </div>
+                </td>
+                <td>
+                    <div hideFunction="function (response){return (!response.data.parent || !response.data.parent.organization || !response.data.parent.organization.id || response.data.parent.organization.id == '' || response.data.parent.organization.id == 0 || !response.data.parent.organization.uname || !response.data.parent.organization.type)}" data-dojo-type="dijit/layout/ContentPane">
+                        <label style="display:none" for="parent.organization.id">Скрытая Организация:</label>
+                        <input style="display:none" type="text" name="parent.organization.id" readonly value="${response.data.parent.organization.id}"/>
+                        <span>${response.data.parent.organization.uname}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div hideFunction="function (response){return (!response.data.parent || !response.data.parent.department || !response.data.parent.department.id || response.data.parent.department.id == '' || response.data.parent.department.id == 0 || !response.data.parent.department.uname || !response.data.parent.department.type)}" data-dojo-type="dijit/layout/ContentPane">
+                        <label style="display:none" for="parent.department.id">Скрытое Подразделение:</label>
+                        <input style="display:none" type="text" name="parent.department.id" readonly value="${response.data.parent.department.id}"/>
+                        <span>Подразделение:</span>
+                    </div>
+                </td>
+                <td>
+                    <div hideFunction="function (response){return (!response.data.parent || !response.data.parent.department || !response.data.parent.department.id || response.data.parent.department.id == '' || response.data.parent.department.id == 0 || !response.data.parent.department.uname || !response.data.parent.department.type)}" data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.parent.department.uname}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <label style="display:none" for="chief.id">Скрытый руководитель:</label>
+                        <input style="display:none" type="text" name="chief.id" readonly data-dojo-type="dijit/form/ValidationTextBox" missingMessage="Неверно заполнено поле" value="${response.data.chief.id}"/>
+
+                        <label style="padding-right: 78px;" for="chief.uname">Руководитель:</label>
+                        <input type="text" name="chief.uname" readonly data-dojo-type="dijit/form/ValidationTextBox" missingMessage="Неверно заполнено поле" value="${response.data.chief.uname}"/>
+                        <button data-dojo-type="dijit/form/Button"
+                                onClick="var fieldId = this.getParent().getChildren()[0]; var fieldName = this.getParent().getChildren()[1]; var appWidget = this.getParent().getParent().getParent().appWidget; appWidget.runSingleDialog(window.location.pathname + 'query/view/extra/person_user', (function(selected){fieldId.set('value', selected.id);fieldName.set('value', selected.name);}));"
+                                type="button">...</button>
+                        <button data-dojo-type="dijit/form/Button"
+                                onClick="var fieldId = this.getParent().getChildren()[0]; var fieldName = this.getParent().getChildren()[1]; fieldId.set('value', 0);fieldName.set('value', '');"
+                                type="button">Х</button>
+                    </div>
+                </td>
+            </tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label for="legaladdr">Информация:</label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='info' type="text" name="info" value="${response.data.info}"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

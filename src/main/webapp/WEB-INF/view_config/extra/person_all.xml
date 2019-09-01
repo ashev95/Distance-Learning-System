@@ -1,0 +1,14 @@
+<ViewTemplate>
+    <structure>
+        <structure>
+            <name>Название</name>
+            <field>name</field>
+            <width>auto</width>
+        </structure>
+    </structure>
+    <data>
+        <identifier>id</identifier>
+        <label>name</label>
+    </data>
+    <uid>person_all</uid>
+</ViewTemplate>

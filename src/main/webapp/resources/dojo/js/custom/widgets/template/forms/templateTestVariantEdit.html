@@ -1,0 +1,37 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_number'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_number'
+							   name="number"
+							   required="true"
+							   data-dojo-type="dijit/form/NumberTextBox"
+							   data-dojo-props='constraints:{min:1,max:99},
+							   invalidMessage:"Поле Номер варианта должно содержать целое положительное число в диапазоне от 1 до 99"'
+							   rangeMessage="Поле Номер варианта должно содержать целое положительное число в диапазоне от 1 до 99"
+							   value="${response.attributes.number.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_author'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_author'></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

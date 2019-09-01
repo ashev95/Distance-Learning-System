@@ -1,0 +1,47 @@
+package com.dls.base.entity;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity(name = "Role")
+@Table(name = "role")
+public class Role {
+
+	@Id
+	@Column(name = "role_code")
+	private String code;
+
+    @Column(name = "role_name")
+    private String name;
+
+	public String getCode(){
+		return code;
+	}
+
+	public void setCode(String code){
+		this.code = code;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public void setName(String name){
+		this.name = name;
+	}
+
+	/*
+	@ManyToMany(mappedBy = "person")
+	private Set<Person> persons = new HashSet<>();
+
+	public Set<Person> getPersons(){
+		return persons;
+	}
+
+	public void setPersons(Set<Person> persons){
+		this.persons = persons;
+	}
+	 */
+
+}

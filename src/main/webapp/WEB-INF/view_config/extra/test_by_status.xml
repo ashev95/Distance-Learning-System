@@ -1,0 +1,29 @@
+<ViewTemplate>
+    <structure>
+        <structure>
+            <name>Название</name>
+            <field>name</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Статус</name>
+            <field>realStatusName</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Начало</name>
+            <field>realStartDate</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Конец</name>
+            <field>realEndDate</field>
+            <width>auto</width>
+        </structure>
+    </structure>
+    <data>
+        <identifier>id</identifier>
+        <label>name</label>
+    </data>
+    <uid>test_by_status</uid>
+</ViewTemplate>

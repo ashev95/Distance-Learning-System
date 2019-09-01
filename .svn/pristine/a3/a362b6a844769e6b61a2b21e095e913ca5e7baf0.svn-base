@@ -1,0 +1,78 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/layout/ContentPane">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span>Краткое название:</span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span>${response.data.uname}</span>
+					</div>
+				</td>
+			</tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Полное название:</span>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.name}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Физический адрес:</span>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.physaddr}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Юридический адрес:</span>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.legaladdr}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Руководитель:</span>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.chief.uname}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>Информация:</span>
+                    </div>
+                </td>
+                <td>
+                    <div data-dojo-type="dijit/layout/ContentPane">
+                        <span>${response.data.info}</span>
+                    </div>
+                </td>
+            </tr>
+		</table>
+	</div>
+</div>

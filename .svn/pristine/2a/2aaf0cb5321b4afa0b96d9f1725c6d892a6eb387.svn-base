@@ -1,0 +1,127 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_username'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_username'
+							   type="text"
+							   name="username"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   missingMessage="Неверно заполнено поле"
+							   value="${response.attributes.username.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_email'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_email'
+							   type="text"
+							   name="email"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   missingMessage="Неверно заполнено поле"
+							   value="${response.attributes.email.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_surname'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_surname'
+							   type="text"
+							   name="surname"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   missingMessage="Неверно заполнено поле"
+							   value="${response.attributes.surname.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_name'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_name'
+							   type="text"
+							   name="name"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   missingMessage="Неверно заполнено поле"
+							   value="${response.attributes.name.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_middlename'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_middlename'
+							   type="text"
+							   name="middlename"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   missingMessage="Неверно заполнено поле"
+							   value="${response.attributes.middlename.value}"/>
+					</div>
+				</td>
+			</tr>
+			<td>
+				<div data-dojo-type="dijit/layout/ContentPane">
+					<label data-dojo-attach-point='label_roles'></label>
+				</div>
+			</td>
+			<td>
+				<div data-dojo-type="dijit/layout/ContentPane">
+					<script>
+                        require(["widgets/ValidationTextAreaWidget"]);
+					</script>
+					<textarea data-dojo-attach-point="component_roles"
+							  name="roles"
+							  required="false"
+							  data-dojo-type="ValidationTextAreaWidget"
+							  missingMessage="Неверно заполнено поле"
+							  class="multilinecontrol"
+							  readonly
+							  rows="3"
+							></textarea>
+				</div>
+			</td>
+			<td>
+				<button data-dojo-type="dijit/form/Button"
+						onClick="var widget = dijit.byId(dojo.query('*[name=roles]')[0].id); var appWidget = this.getParent().getParent().appWidget; appWidget.showCustomDialog('dialog/role/all', true, (function(selected){widget.setValueArray(selected)}), (function(selected){var v = []; selected.some(function(obj) {v.push({code:obj.code[0],name:obj.name[0]});}); return v;}));"
+						type="button">...</button>
+			</td>
+			<td>
+				<button data-dojo-type="dijit/form/Button"
+						onClick="var widget = dijit.byId(dojo.query('*[name=roles]')[0].id); widget.clearValueArray();"
+						type="button">Х</button>
+			</td>
+		</table>
+	</div>
+</div>

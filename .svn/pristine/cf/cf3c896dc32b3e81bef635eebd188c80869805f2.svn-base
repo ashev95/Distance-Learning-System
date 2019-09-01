@@ -1,0 +1,136 @@
+package com.dls.base.controller;
+
+import com.dls.base.entity.Person;
+import com.dls.base.entity.Role;
+import com.dls.base.repository.PersonRepository;
+import com.dls.base.repository.RoleRepository;
+import com.dls.base.ui.form.FormAttribute;
+import com.dls.base.ui.form.FormTemplate;
+import com.dls.base.utils.Utils;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.repository.query.ReturnedType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.*;
+import java.lang.reflect.Field;
+import java.util.*;
+
+@RestController
+@RequestMapping("form")
+public class FormRestController
+{
+
+	private final PersonRepository personRepository;
+	private final RoleRepository roleRepository;
+
+
+	@Autowired
+	private ResourceLoader resourceLoader;
+
+	@Autowired
+	Utils utils;
+
+	@Autowired
+	FormRestController(PersonRepository personRepository, RoleRepository roleRepository) {
+		this.personRepository = personRepository;
+		this.roleRepository = roleRepository;
+	}
+
+	@GetMapping(value = "/{template}/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+	public FormTemplate getForm(@PathVariable String template, @PathVariable long id) {
+		FormTemplate formTemplate = null;
+		switch (template){
+			case "person" :
+				Person person;
+				if (id == 0){
+					person = new Person();
+				}else{
+					person = personRepository.findByPersonId(id);
+				}
+				HashMap<String, String> skipList = new HashMap<String, String>();
+				skipList.put("password", "");
+				skipList.put("confirmpassword", "");
+				try {
+					XmlMapper xmlMapper = new XmlMapper();
+					final Resource fileResource = resourceLoader.getResource("/WEB-INF/form_config/" + template + ".xml");
+					File file = fileResource.getFile();
+					String xml = utils.inputStreamToString(new FileInputStream(file));
+					formTemplate = xmlMapper.readValue(xml, FormTemplate.class);
+					formTemplate.attributes = new HashMap<String, FormAttribute>();
+					List<Field> fields = getFields(person);
+					for (Field field : fields){
+						if (!skipList.containsKey(field.getName().toLowerCase())){
+							field.setAccessible(true);
+							try {
+								FormAttribute formAttribute = new FormAttribute();
+								formAttribute.name = field.getName();
+								formAttribute.type = field.getType().getSimpleName().toLowerCase();
+								formAttribute.value = field.get(person);
+								if (formTemplate.attributeTitles.containsKey(field.getName())){
+									formAttribute.title = formTemplate.attributeTitles.get(field.getName());
+								}else{
+									formAttribute.title = field.getName();
+								}
+								formTemplate.attributes.put(field.getName(), formAttribute);
+							} catch (IllegalAccessException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+				default:
+					break;
+		}
+		return formTemplate;
+	}
+
+	private <T> List<Field> getFields(T t) {
+		List<Field> fields = new ArrayList<>();
+		Class clazz = t.getClass();
+		while (clazz != Object.class) {
+			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+			clazz = clazz.getSuperclass();
+		}
+		return fields;
+	}
+
+	@PutMapping(value = "/{template}/{id}")
+	public @ResponseBody Person createForm(@PathVariable String template, @PathVariable long id, @RequestBody Person person) {
+		return null;
+	}
+
+	@DeleteMapping(value = "/{template}/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+	public ResponseEntity removeForm(@PathVariable String template, @PathVariable long id) {
+		boolean res = false;
+		switch (template){
+			case "person" :
+				Person person = personRepository.findByPersonId(id);
+				if (person != null){
+					personRepository.deleteById(id);
+					res = true;
+				}
+				break;
+			default:
+				break;
+		}
+		if (res){
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body("OK");
+		}else{
+			return ResponseEntity
+					.status(HttpStatus.NOT_FOUND)
+					.body("Не найден");
+		}
+	}
+
+}

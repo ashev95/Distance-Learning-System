@@ -1,0 +1,12 @@
+package com.dls.base.ui.view;
+
+import java.io.Serializable;
+
+public class ViewButton implements Serializable {
+
+	public String label;
+	public String iconClass;
+	public String hideFunction;
+	public String onClick;
+
+}

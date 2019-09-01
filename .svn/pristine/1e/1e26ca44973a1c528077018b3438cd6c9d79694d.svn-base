@@ -1,0 +1,21 @@
+package com.dls.base.service;
+
+import com.dls.base.entity.Foo;
+import com.dls.base.repository.FooDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Service
+@Transactional
+public class FooService {
+ 
+    @Autowired
+	private FooDao dao;
+ 
+    public List<Foo> findAll() {
+        return dao.findAll();
+    }
+}

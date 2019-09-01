@@ -1,0 +1,44 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Demo: Custom Modules with CDN</title>
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" media="screen">
+
+
+
+</head>
+<body class="claro">
+<h1>Demo: Custom Modules with CDN</h1>
+
+<!-- note that you can always create a dojoConfig object instead of putting everything into data-dojo-config
+     if you want -->
+<script>
+    var dojoConfig = {
+        dojoBlankHtmlUrl: location.pathname.replace(/\/[^/]+$/, '') + '/blank.html',
+        packages: [{
+            name: 'custom',
+            location: location.pathname.replace(/\/[^/]+$/, '') + '/js/custom'
+        }]
+    };
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" data-dojo-config="isDebug: 1, async: 1, parseOnLoad: 1"></script>
+<script>
+    require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function(Button, dom){
+        // Create a button programmatically:
+        var myButton = new Button({
+            label: "Click me!",
+            onClick: function(){
+                // Do something:
+                dom.byId("result1").innerHTML += "Thank you! ";
+            }
+        }, "progButtonNode").startup();
+    });
+</script>
+
+  <button id="progButtonNode" type="button"></button>
+  <div id="result1"></div>
+
+</body>
+</html>

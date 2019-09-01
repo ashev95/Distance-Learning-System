@@ -1,0 +1,249 @@
+define([
+    "dojo/_base/declare",
+    "dijit/_WidgetBase",
+    "dijit/_TemplatedMixin",
+	"dijit/_WidgetsInTemplateMixin",
+	"dojo/request",
+	"widgets/GridWidget",
+    "dijit/MenuBar",
+    "dijit/MenuItem",
+    "dojo/dom-style",
+    "dojo/dom-form",
+    "dojo/query",
+
+    "dojo/text!./templates/forms/categoryEdit.html",
+    "dojo/text!./templates/forms/courseEdit.html",
+    "dojo/text!./templates/forms/lessonEdit.html",
+    "dojo/text!./templates/forms/testEdit.html",
+    "dojo/text!./templates/forms/questionEdit.html",
+    "dojo/text!./templates/forms/answerEdit.html",
+    "dojo/text!./templates/forms/personEdit.html",
+    "dojo/text!./templates/forms/departmentEdit.html",
+    "dojo/text!./templates/forms/organizationEdit.html",
+
+    "dojo/text!./templates/forms/categoryRead.html",
+    "dojo/text!./templates/forms/courseRead.html",
+    "dojo/text!./templates/forms/lessonRead.html",
+    "dojo/text!./templates/forms/testRead.html",
+    "dojo/text!./templates/forms/questionRead.html",
+    "dojo/text!./templates/forms/answerRead.html",
+    "dojo/text!./templates/forms/personRead.html",
+    "dojo/text!./templates/forms/departmentRead.html",
+    "dojo/text!./templates/forms/organizationRead.html",
+
+    "dojox/validate/web", "dojox/validate/us", "dojox/validate/check"
+	
+], function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, request, GridWidget, MenuBar, MenuItem, domStyle, domForm, query,
+            formCategoryEdit, formCourseEdit, formLessonEdit, formTestEdit, formQuestionEdit, formAnswerEdit, formPersonEdit, formDepartmentEdit, formOrganizationEdit,
+            formCategoryRead, formCourseRead, formLessonRead, formTestRead, formQuestionRead, formAnswerRead, formPersonRead, formDepartmentRead, formOrganizationRead,
+            validate
+    ){
+    return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+		
+		response: {type:'undefined'},
+		
+		uid: "",
+		
+		type: "",
+		
+        baseClass: 'FormWidget',
+		
+		appWidget: undefined, 
+		
+		isNew: false,
+
+        editMode:false,
+
+        menuBar: undefined,
+
+        form:undefined,
+
+        listOfTemplates: {
+            categoryEdit: formCategoryEdit,
+            categoryRead: formCategoryRead,
+            courseEdit: formCourseEdit,
+            courseRead: formCourseRead,
+            lessonEdit: formLessonEdit,
+            lessonRead: formLessonRead,
+            testEdit: formTestEdit,
+            testRead: formTestRead,
+            questionEdit: formQuestionEdit,
+            questionRead: formQuestionRead,
+            answerEdit: formAnswerEdit,
+            answerRead: formAnswerRead,
+            personEdit: formPersonEdit,
+            personRead: formPersonRead,
+            departmentEdit: formDepartmentEdit,
+            departmentRead: formDepartmentRead,
+            organizationEdit: formOrganizationEdit,
+            organizationRead: formOrganizationRead
+        },
+
+        _getFormObjectChiefOrNew: function(formObject){
+            if (formObject.chief){
+                return formObject.chief;
+            }
+            formObject.chief = {};
+            return formObject.chief;
+        },
+
+        _getFormObjectParentOrNew: function(formObject){
+		    if (formObject.parent){
+		        return formObject.parent;
+            }
+            formObject.parent = {};
+            return formObject.parent;
+        },
+
+        getFormObject: function(){
+            var formObject = domForm.toObject(this.form.domNode);
+            if (formObject["parent.id"]){
+                this._getFormObjectParentOrNew(formObject).id = formObject["parent.id"];
+                formObject["parent.id"] = undefined;
+            }
+            if (formObject["parent.name"]){
+                this._getFormObjectParentOrNew(formObject).name = formObject["parent.name"];
+                formObject["parent.name"] = undefined;
+            }
+            if (this.description){
+                formObject.description = this.description.value;
+            }
+            if (this.valid != undefined){
+                formObject.valid = this.valid.checked;
+            }
+            if (formObject["chief.id"]){
+                this._getFormObjectChiefOrNew(formObject).id = formObject["chief.id"];
+                formObject["chief.id"] = undefined;
+            }
+            if (formObject["chief.uname"]){
+                this._getFormObjectChiefOrNew(formObject).uname = formObject["chief.uname"];
+                formObject["chief.uname"] = undefined;
+            }
+            /*
+             if (formObject["parent.organization.id"]){
+             this._getFormObjectParentOrganizationOrNew(formObject).id = formObject["parent.organization.id"];
+             formObject["parent.organization.id"] = undefined;
+             }
+             if (formObject["parent.department.id"]){
+             this._getFormObjectParentDepartmentOrNew(formObject).id = formObject["parent.department.id"];
+             formObject["parent.department.id"] = undefined;
+             }
+             */
+            return formObject;
+        },
+
+        validate: function (){
+		    return (this.form.validate());
+        },
+
+        computeHideFunction: function (){
+            this.menuBar.getChildren().some(function(button) {
+                if (button.computeHF()){
+                    domStyle.set(button.domNode, "display", "none");
+                }else{
+                    domStyle.set(button.domNode, "display", "block");
+                }
+            });
+        },
+
+		buildRendering: function(){
+            this.templateString = (this.editMode || this.isNew) ? this.listOfTemplates[this.response.data.type + 'Edit'] : this.listOfTemplates[this.response.data.type + 'Read'];
+            /* Вычисление скрытых полей */
+            /* НАЧАЛО */
+            var template = document.createElement('div');
+            template.innerHTML = this.templateString;
+            var ruleItems = query("*[hideFunction]", template);
+            var thisContext = this;
+            ruleItems.some(function(entry) {
+                var func = entry.getAttribute("hideFunction");
+                var f = function (response) {return eval("(" + func + ")").call(thisContext, thisContext.response);}
+                if (f()){
+                    domStyle.set(entry, "display", "none");
+                }else{
+                    domStyle.set(entry, "display", "block");
+                }
+            });
+            this.templateString = template.children[0].outerHTML;
+            /* КОНЕЦ */
+            this.inherited(arguments);
+		},
+
+		postCreate: function(){
+			this.inherited(arguments);
+
+            var pMenuBar = new MenuBar({});
+            this.menuBar = pMenuBar;
+
+            if (this.description && this.response.data.description){
+                if (this.editMode){
+                    this.description.attr("value", this.response.data.description)
+                }else{
+                    this.description.innerHTML = this.response.data.description;
+                }
+            }
+
+            if (this.valid != undefined){
+                if (this.valid.innerText === "true"){
+                    this.valid.innerText = "Да"
+                }else{
+                    this.valid.innerText = "Нет"
+                }
+            }
+
+            var thisContext = this;
+            if (!!this.response.buttons && !!this.response.buttons[0]){
+                this.response.buttons.reverse().some(function(button) {
+                    pMenuBar.addChild(
+                        new MenuItem({
+                            label: button.label,
+                            iconClass: button.iconClass,
+                            onClick: function (item) {eval("(function(){" + button.onClick + "})").call(thisContext);},
+                            appWidget: this.appWidget,
+                            computeHF: function (items) {return eval("(function(){" + button.hideFunction + "})").call(thisContext, items);}
+                        })
+                    );
+                });
+            }
+
+            this.computeHideFunction();
+
+            pMenuBar.placeAt(this.domNode, 'first');
+
+			var url;
+			switch(this.response.data.type) {
+                case 'course':
+                    url = window.location.pathname + 'query/view/' + 'lesson' + '/' + 'course' + '/' + this.response.data.id;
+                    break;
+                case 'lesson':
+                    url = window.location.pathname + 'query/view/' + 'test' + '/' + 'lesson' + '/' + this.response.data.id
+                    break;
+                case 'test':
+                    url = window.location.pathname + 'query/view/' + 'question' + '/' + 'test' + '/' + this.response.data.id
+                    break;
+                case 'question':
+                    url = window.location.pathname + 'query/view/' + 'answer' + '/' + 'question' + '/' + this.response.data.id
+                    break;
+                default:
+                    url = undefined
+            }
+			var parentForm = this;
+			if (url){
+				var thisWidget = this;
+				request(url, {
+					handleAs: "json"
+				}).then(function(response){
+					var tab = new GridWidget({
+						url: url,
+						response: response,
+						isNew: false,
+						appWidget: thisWidget.appWidget,
+                        parentForm: parentForm
+					});
+					tab.placeAt(thisWidget, 'last');
+				});
+			}
+		}
+		
+    });
+	
+});

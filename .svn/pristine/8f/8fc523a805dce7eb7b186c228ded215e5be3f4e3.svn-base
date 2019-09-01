@@ -1,0 +1,38 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="resources/dojo/images/favicon.ico" type="image/x-icon">
+    <title>Система дистанционного обучения</title>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dijit/themes/claro/claro.css">
+
+      <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojo/resources/dojo.css">
+      <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojox/grid/resources/Grid.css">
+      <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojox/grid/resources/claroGrid.css">
+
+    <link rel="stylesheet" href="resources/dojo/style.css">
+
+  </head>
+  <body class="claro">
+
+      <script>
+          var dojoConfig = {
+              parseOnLoad: true,
+              async: true,
+              dojoBlankHtmlUrl: location.href + '/resources/dojo/html/blank.html',
+              packages: [{
+                  name: 'widgets',
+                  location: location.href + '/resources/dojo/js/custom/widgets'
+              }]
+          };
+      </script>
+
+      <script src="//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojo/dojo.js"></script>
+      <script>
+          require(["widgets/AppWidget"]);
+      </script>
+      <div data-dojo-type="AppWidget"></div>
+
+  </body>
+
+</html>

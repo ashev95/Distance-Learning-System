@@ -1,0 +1,11 @@
+package com.dls.base;
+
+import java.util.ArrayList;
+
+public class ViewData {
+
+	public String identifier;
+	public String label;
+	public ArrayList<ViewEntity> items;
+
+}

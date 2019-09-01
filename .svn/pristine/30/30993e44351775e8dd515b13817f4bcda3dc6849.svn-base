@@ -1,0 +1,128 @@
+package com.dls.base.controller;
+
+import com.dls.base.entity.Person;
+import com.dls.base.entity.Role;
+import com.dls.base.repository.PersonRepository;
+import com.dls.base.repository.RoleRepository;
+import com.dls.base.service.SecurityService;
+import com.dls.base.utils.Utils;
+import com.dls.base.validator.PersonValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.annotation.PostConstruct;
+import java.util.HashSet;
+import java.util.Set;
+
+@Controller
+public class MainController
+{
+
+	private final PersonRepository personRepository;
+	private final RoleRepository roleRepository;
+	private final SecurityService securityService;
+	private final PersonValidator personValidator;
+
+	@Autowired
+	MainController(PersonRepository personRepository, RoleRepository roleRepository, SecurityService securityService, PersonValidator personValidator, Utils utils) {
+		this.personRepository = personRepository;
+		this.roleRepository = roleRepository;
+		this.securityService = securityService;
+		this.personValidator = personValidator;
+		this.utils = utils;
+	}
+
+	@Autowired
+	private final Utils utils;
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@ModelAttribute("personForm") Person personForm, BindingResult bindingResult, Model model) {
+		personValidator.validate(personForm, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			return "login";
+		}
+		securityService.autoLogin(personForm.getUsername(), personForm.getConfirmPassword());
+		return "redirect:/dls";
+	}
+
+	@RequestMapping(value = {"/","/login"}, method = RequestMethod.GET)
+	public String login()
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			return "redirect:/dls";
+		}
+		return "login";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout()
+	{
+		return "redirect:/login";
+	}
+
+	@RequestMapping(value = "/dls/logout", method = RequestMethod.GET)
+	public String logout1()
+	{
+		return "redirect:/logout";
+	}
+
+	@RequestMapping(value = "/dls", method = RequestMethod.GET)
+	public String main()
+	{
+		return "dls";
+	}
+
+	@Value("#{appProperties['roles.admin.code']}")
+	private String rolesAdminCode;
+
+	@PostConstruct
+	public void postConstruct() {
+		//Применять ли конфиг
+		if (utils.getAppProperty("properties.read").equals("true")) {
+			Role role;
+			Person person;
+			//Создаём роли, если их нет
+			if (this.roleRepository.findAll().size() == 0){
+				for (String key : utils.getRoles().keySet()){
+					role = new Role();
+					role.setName(utils.getRoles().get(key));
+					role.setCode(key);
+					this.roleRepository.save(role);
+				}
+			}
+			//Создаём администратора, если отсутствует
+			if (this.personRepository.findByRoleCode(rolesAdminCode).size() == 0){
+				person = new Person();
+				person.setUsername(utils.getAppProperty("admin.username"));
+				person.setPassword(new BCryptPasswordEncoder().encode(utils.getAppProperty("admin.password")));
+				person.setEmail(utils.getAppProperty("admin.email"));
+				person.setSurname(utils.getAppProperty("admin.surname"));
+				person.setName(utils.getAppProperty("admin.name"));
+				person.setMiddlename(utils.getAppProperty("admin.middlename"));
+				person = this.personRepository.save(person);
+
+				//Добавляем роль администратору
+				role = this.roleRepository.findByRoleCode(rolesAdminCode);
+				Set<Role> adminRoles = new HashSet<>();
+				adminRoles.add(role);
+				person.setRoles(adminRoles);
+				this.personRepository.save(person);
+
+			}
+
+		}
+	}
+
+}

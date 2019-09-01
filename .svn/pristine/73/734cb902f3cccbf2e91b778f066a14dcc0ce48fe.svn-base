@@ -1,0 +1,12 @@
+package com.dls.base.ui.view;
+
+import java.io.Serializable;
+
+public class ViewEntity implements Serializable {
+
+	public long id;
+	public String name;
+	public String type;
+	public String code;
+
+}

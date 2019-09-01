@@ -1,0 +1,14 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/layout/ContentPane">
+		<div data-dojo-attach-point="attributeContainer_1" /></div>
+		<div data-dojo-attach-point="attributeContainer_2" /></div>
+		<div data-dojo-attach-point="attributeContainer_3" /></div>
+		<div data-dojo-attach-point="attributeContainer_4" /></div>
+		<div data-dojo-attach-point="attributeContainer_5" /></div>
+		<div data-dojo-attach-point="attributeContainer_6" /></div>
+		<div data-dojo-attach-point="attributeContainer_7" /></div>
+		<div data-dojo-attach-point="attributeContainer_8" /></div>
+		<div data-dojo-attach-point="attributeContainer_9" /></div>
+		<div data-dojo-attach-point="attributeContainer_10" ></div>
+	</div>
+</div>

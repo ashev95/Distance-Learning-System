@@ -1,0 +1,67 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_name'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_name'
+							   type="text"
+							   name="name"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Название должно содержать не более 255 символов"'
+							   missingMessage="Поле Название обязательно для заполнения"
+							   value="${response.attributes.name.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_curator'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<script>
+                            require(["widgets/ValidationAttributeWidget"]);
+						</script>
+						<input data-dojo-attach-point="component_curator"
+							   name="curator"
+							   required="true"
+							   data-dojo-type="ValidationAttributeWidget"
+							   missingMessage="Поле Куратор обязательно для заполнения"
+							   readonly
+						></input>
+					</div>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_curator_button_1"
+							onClick="var widget = dijit.byId(dojo.query('*[name=curator]')[0].id); var appWidget = this.getParent().getParent().appWidget; appWidget.showCustomDialog('dialog/person/by_role/curator', false, (function(selected){widget.setValue(selected)}), (function(selected){var o = {id: {value: selected.cardId[0]}, name: {value: selected.name[0]}}; return o;}));"
+							type="button">...</button>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_curator_button_2"
+							onClick="var widget = dijit.byId(dojo.query('*[name=curator]')[0].id); widget.clearValue();"
+							type="button">Х</button>
+				</td>
+			</tr>
+		</table>
+		<table style="padding: 10px; width: 100%;">
+			<tr>
+				<td colspan="2">
+					<div data-dojo-attach-point='embView' data-dojo-type="widgets/GridWidget" data-dojo-props="formWidget:this">
+					</div>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

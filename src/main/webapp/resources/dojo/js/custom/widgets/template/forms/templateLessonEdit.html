@@ -1,0 +1,124 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_name'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_name'
+							   type="text"
+							   name="name"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Название должно содержать не более 255 символов",
+							   style:{width: "99%"}'
+							   missingMessage="Поле Название обязательно для заполнения"
+							   value="${response.attributes.name.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_description'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_description'
+							   type="text"
+							   name="description"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Описание должно содержать не более 255 символов",
+							   style:{width: "99%"}',
+							   missingMessage="Поле Описание обязательно для заполнения"
+							   value="${response.attributes.description.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_category'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<script>
+                            require(["widgets/ValidationAttributeWidget"]);
+						</script>
+						<input data-dojo-attach-point="component_category"
+							   name="category"
+							   required="false"
+							   data-dojo-type="ValidationAttributeWidget"
+							   readonly
+						></input>
+					</div>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_group_button_1"
+							onClick="var widget = dijit.byId(dojo.query('*[name=category]')[0].id); var appWidget = this.getParent().getParent().appWidget; appWidget.showCustomDialog('dialog/category/all', false, (function(selected){widget.setValue(selected)}), (function(selected){var o = {id: {value: selected.cardId[0]}, name: {value: selected.name[0]}}; return o;}));"
+							type="button">...</button>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_group_button_2"
+							onClick="var widget = dijit.byId(dojo.query('*[name=category]')[0].id); widget.clearValue();"
+							type="button">Х</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_status'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_status'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_author'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_author'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateCreate'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateCreate'></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table style="padding: 10px; width: 100%;">
+			<tr>
+				<td colspan="2">
+					<div data-dojo-type="widgets/ResourceWidget" data-dojo-attach-point='component_resource' data-dojo-props="formWidget:this" style="padding-left:8px">
+					</div>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

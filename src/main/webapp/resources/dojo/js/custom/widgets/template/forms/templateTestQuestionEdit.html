@@ -1,0 +1,106 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_number'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_number'
+							   name="number"
+							   required="true"
+							   data-dojo-type="dijit/form/NumberTextBox"
+							   data-dojo-props='constraints:{min:1,max:99},
+							   invalidMessage:"Поле Номер вопроса должно содержать целое положительное число в диапазоне от 1 до 99"'
+							   rangeMessage="Поле Номер вопроса должно содержать целое положительное число в диапазоне от 1 до 99"
+							   value="${response.attributes.number.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_content'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_content'
+							   type="text"
+							   name="content"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Содержание должно содержать не более 255 символов"'
+							   missingMessage="Поле Содержание обязательно для заполнения"
+							   value="${response.attributes.content.value}"
+							   autofocus="true"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_scorePositive'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_scorePositive'
+							   name="scorePositive"
+							   required="true"
+							   data-dojo-type="dijit/form/NumberTextBox"
+							   data-dojo-props='constraints:{min:0,max:100},
+							   invalidMessage:"Поле Добавлять баллов за правильный ответ должно содержать целое положительное число в диапазоне от 0 до 100"'
+							   rangeMessage="Поле Добавлять баллов за правильный ответ должно содержать целое положительное число в диапазоне от 0 до 100"
+							   value="${response.attributes.scorePositive.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_scoreNegative'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_scoreNegative'
+							   name="scoreNegative"
+							   required="true"
+							   data-dojo-type="dijit/form/NumberTextBox"
+							   data-dojo-props='constraints:{min:0,max:100},
+							   invalidMessage:"Поле Вычитать баллов за правильный ответ должно содержать целое положительное число в диапазоне от 0 до 100"'
+							   rangeMessage="Поле Вычитать баллов за правильный ответ должно содержать целое положительное число в диапазоне от 0 до 100"
+							   value="${response.attributes.scoreNegative.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_author'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_author'></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table style="padding: 10px; width: 100%;">
+			<tr>
+				<td colspan="2">
+					<div data-dojo-type="widgets/ResourceWidget" data-dojo-attach-point='component_resource' data-dojo-props="formWidget:this, missComponents: ['text']" style="padding-left:8px">
+					</div>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

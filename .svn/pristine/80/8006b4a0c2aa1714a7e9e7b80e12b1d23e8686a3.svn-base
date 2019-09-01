@@ -1,0 +1,36 @@
+define([
+"dojo/_base/declare",
+"dojo/_base/lang",
+"dijit/form/SimpleTextarea",
+"dijit/form/ValidationTextBox"
+ ], function(declare, lang, SimpleTextarea, ValidationTextBox) {
+
+  return declare('ValidationTextAreaWidget', [SimpleTextarea, ValidationTextBox], {
+    valueArray:[],
+    clearValueArray: function(){
+      this.set("value", "");
+      this.valueArray = [];
+    },
+    setValueArray: function(valueArr){
+        var v = [];
+        valueArr.some(function(obj) {
+            v.push(obj.name);
+        });
+        this.set("value", v.join("\n"));
+        this.valueArray = valueArr;
+    },
+    getValueArray: function(){
+        return this.valueArray;
+    },
+    constructor: function(params){
+      this.constraints = {};
+      this.baseClass += ' ValidationTextAreaWidget';
+    },
+    templateString: "<textarea ${!nameAttrSetting} data-dojo-attach-point='focusNode,containerNode,textbox' autocomplete='off'></textarea>",
+    validator: function(value, constraints) {
+      return (new RegExp("^(?:" + this._computeRegexp(constraints) + ")"+(this.required?"":"?")+"$",["m"])).test(value) &&
+        (!this.required || !this._isEmpty(value)) &&
+        (this._isEmpty(value) || this.parse(value, constraints) !== undefined); // Boolean
+    }
+    })
+})

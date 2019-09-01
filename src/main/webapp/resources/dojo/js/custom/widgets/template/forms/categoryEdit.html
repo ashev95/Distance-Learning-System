@@ -1,0 +1,46 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_name'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_name'
+							   type="text"
+							   name="name"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Название должно содержать не более 255 символов"'
+							   missingMessage="Поле Название обязательно для заполнения"
+							   value="${response.attributes.name.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_description'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_description'
+							   type="text"
+							   name="description"
+							   required="false"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{0,255}",
+							   invalidMessage:"Поле Описание должно содержать не более 255 символов"'
+							   missingMessage="Поле Описание обязательно для заполнения"
+							   value="${response.attributes.description.value}"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

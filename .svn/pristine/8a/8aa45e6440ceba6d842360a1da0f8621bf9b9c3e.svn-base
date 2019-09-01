@@ -1,0 +1,89 @@
+define([
+    "dojo/_base/declare",
+    "dijit/_WidgetBase",
+    "dijit/_TemplatedMixin",
+    "dijit/_WidgetsInTemplateMixin",
+    "dojo/parser",
+    "dojo/ready",
+
+    "dojo/data/ItemFileReadStore",
+    "dijit/tree/ForestStoreModel",
+    "dijit/Tree",
+
+    "dojo/request",
+
+    "widgets/FormWidget",
+    "widgets/GridWidget",
+    "dojo/query",
+    "dojo/dom-class",
+    "dijit/ConfirmDialog",
+    "dijit/Dialog",
+    "dojo/store/JsonRest",
+
+    "dijit/layout/ContentPane",
+
+    "dijit/form/Button",
+
+    "dojo/on",
+
+    "dojo/request/xhr",
+
+    "dijit/form/TextBox",
+
+    "dijit/layout/BorderContainer",
+
+    "dijit/layout/ContentPane",
+
+    "dijit/layout/AccordionContainer",
+
+    "dijit/layout/TabContainer",
+
+    "dojo/dom",
+
+    "dojo/cookie",
+
+    "dojo/_base/json",
+
+    "dojo/text!./config/view_config.json",
+    "dojo/text!./config/form_config.json",
+
+    "dojo/text!./template/TextListWidget.html"
+
+], function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, parser, ready, ItemFileReadStore, ForestStoreModel, Tree, request, FormWidget, GridWidget,
+            query, domClass, ConfirmDialog, Dialog, JsonRest, ContentPane, Button, on, xhr, TextBox, BorderContainer, ContentPane, AccordionContainer, TabContainer,
+            dom, cookie, json, viewConfigText, formConfigText, template
+){
+    declare("TextListWidget", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+
+        templateString:template,
+
+        value: [],
+        _setValueAttr: function(arr){
+            this.value = arr;
+            this._display();
+        },
+
+        postCreate: function(){
+            this.inherited(arguments);
+        },
+
+        clear: function(){
+            this.value = {};
+            this._display();
+        },
+
+        appendItem: function(item){
+            this.value.push(item);
+            this._display();
+        },
+
+        _display: function() {
+            var v = [];
+            this.value.some(function(obj) {
+                v.push(obj.name);
+            });
+            this.domNode.innerHTML = v.join("<br>");
+        }
+
+    });
+});

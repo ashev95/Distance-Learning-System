@@ -1,0 +1,24 @@
+<ViewTemplate>
+    <structure>
+        <structure>
+            <name>Пользователь</name>
+            <field>name</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Статус</name>
+            <field>realStatusName</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Конец</name>
+            <field>realEndDate</field>
+            <width>auto</width>
+        </structure>
+    </structure>
+    <data>
+        <identifier>id</identifier>
+        <label>name</label>
+    </data>
+    <uid>person_by_lesson</uid>
+</ViewTemplate>

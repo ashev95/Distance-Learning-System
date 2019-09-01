@@ -1,0 +1,43 @@
+package com.dls.base.service.impl;
+
+import com.dls.base.entity.Person;
+import com.dls.base.repository.PersonRepository;
+import com.dls.base.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PersonServiceImpl implements PersonService {
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Override
+    public Person insert(Person person) {
+        Person savedPerson = personRepository.saveAndFlush(person);
+        return savedPerson;
+    }
+
+    @Override
+    public void delete(long id) {
+        personRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Person> getById(long id) {
+        return personRepository.findById(id);
+    }
+
+    @Override
+    public Person update(Person person) {
+        return personRepository.saveAndFlush(person);
+    }
+
+    @Override
+    public List<Person> getAll() {
+        return personRepository.findAll();
+    }
+}

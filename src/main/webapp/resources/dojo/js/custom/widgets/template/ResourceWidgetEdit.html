@@ -1,0 +1,22 @@
+<div data-dojo-type="dijit/layout/ContentPane">
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-attach-point="resourceWidgetContainer" style="/*overflow: auto; height: 500px;*/ border: 1px #b5bcc7 solid; padding: 5px; height: 100%; width: 98%;">
+	</div>
+	<div data-dojo-type="dijit/layout/ContentPane" style="padding-left:0px">
+		<div data-dojo-type="dijit/form/DropDownButton" data-dojo-props="iconClass:'add-btn-16'">
+			<div data-dojo-type="dijit/TooltipDialog" class="customTooltipDialog" data-dojo-attach-point="tooltipDialog">
+				<div data-dojo-type="dijit/DropDownMenu">
+					<div data-dojo-type="dijit/MenuItem" data-dojo-props="iconClass:'text-resource-16'" data-dojo-attach-point="textResourceController">Текст</div>
+					<div data-dojo-type="dijit/MenuSeparator"></div>
+					<div data-dojo-type="dijit/MenuItem" data-dojo-props="iconClass:'video-resource-16'" data-dojo-attach-point="videoResourceController">Видео</div>
+					<div data-dojo-type="dijit/MenuSeparator"></div>
+					<div data-dojo-type="dijit/MenuItem" data-dojo-props="iconClass:'image-resource-16'" data-dojo-attach-point="imageResourceController">Изображение</div>
+					<div data-dojo-type="dijit/MenuSeparator"></div>
+					<div data-dojo-type="dijit/MenuItem" data-dojo-props="iconClass:'audio-resource-16'" data-dojo-attach-point="audioResourceController">Аудио</div>
+					<div data-dojo-type="dijit/MenuSeparator"></div>
+					<div data-dojo-type="dijit/MenuItem" data-dojo-props="iconClass:'file-resource-16'" data-dojo-attach-point="fileResourceController">Файл</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style=" width: 100%; height: 30px; padding-top: 10px;"></div>
+</div>

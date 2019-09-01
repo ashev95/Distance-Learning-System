@@ -1,0 +1,175 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_username'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_username'
+							   type="text"
+							   name="username"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^[a-zA-Z0-9]{1,255}",
+							   invalidMessage:"Поле Логин должно содержать не более 255 латинских символов и цифр"'
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   missingMessage="Поле Логин обязательно для заполнения"
+							   value="${response.attributes.username.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_email'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_email'
+							   type="text"
+							   name="email"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:".+@.+\\..+",
+							   invalidMessage:"Поле Почта заполнено некорректно"'
+							   missingMessage="Поле Почта обязательно для заполнения"
+							   value="${response.attributes.email.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_surname'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_surname'
+							   type="text"
+							   name="surname"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Фамилия должно содержать не более 255 символов"'
+							   missingMessage="Поле Фамилия обязательно для заполнения"
+							   value="${response.attributes.surname.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_name'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_name'
+							   type="text"
+							   name="name"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Имя должно содержать не более 255 символов"'
+							   missingMessage="Поле Имя обязательно для заполнения"
+							   value="${response.attributes.name.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_middlename'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_middlename'
+							   type="text"
+							   name="middlename"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Отчество должно содержать не более 255 символов"'
+							   missingMessage="Поле Отчество обязательно для заполнения"
+							   value="${response.attributes.middlename.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_gender'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<select data-dojo-attach-point='component_gender' name="gender" data-dojo-type="dijit/form/Select">
+							<option value="0">Мужской</option>
+							<option value="1">Женский</option>
+						</select>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_additionally'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_additionally'
+							   type="text"
+							   name="additionally"
+							   required="false"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{0,255}",
+							   invalidMessage:"Поле Дополнительно должно содержать не более 255 символов"'
+							   missingMessage="Поле Дополнительно обязательно для заполнения"
+							   value="${response.attributes.additionally.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_roles'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<script>
+                            require(["widgets/ValidationRoleTextAreaWidget"]);
+						</script>
+						<textarea data-dojo-attach-point="component_roles"
+								  name="roles"
+								  required="false"
+								  data-dojo-type="ValidationRoleTextAreaWidget"
+								  missingMessage=""
+								  class="multilinecontrol"
+								  readonly
+								  rows="3"
+						></textarea>
+					</div>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button"
+							onClick="var widget = dijit.byId(dojo.query('*[name=roles]')[0].id); var appWidget = this.getParent().getParent().appWidget; appWidget.showCustomDialog('dialog/role/all', true, (function(selected){widget.setValueArray(selected)}), (function(selected){var v = []; selected.some(function(obj) {v.push({code:obj.code[0],name:obj.name[0]});}); return v;}));"
+							type="button">...</button>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button"
+							onClick="var widget = dijit.byId(dojo.query('*[name=roles]')[0].id); widget.clearValueArray();"
+							type="button">Х</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

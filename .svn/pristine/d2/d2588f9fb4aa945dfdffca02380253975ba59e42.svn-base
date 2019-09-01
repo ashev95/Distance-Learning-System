@@ -1,0 +1,6 @@
+Required=This field is required.
+Size.personForm.username=Username must be between 8 and 32 characters.
+Duplicate.personForm.username=Such username already exists.
+Size.personForm.password=Password must be over 8 characters.
+Different.personForm.password=Password don't match.
+PersonNotFound=Person not found.

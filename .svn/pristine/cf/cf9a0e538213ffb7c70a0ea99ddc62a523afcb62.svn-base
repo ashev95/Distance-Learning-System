@@ -1,0 +1,27 @@
+<ViewTemplate>
+    <buttons>
+        <buttons>
+            <label>Обновить</label>
+            <iconClass>refresh-btn-16</iconClass>
+            <hideFunction>return false</hideFunction>
+            <onClick>gridView.customRefresh();</onClick>
+        </buttons>
+        <buttons>
+            <label>Закрыть</label>
+            <iconClass>close-btn-16</iconClass>
+            <hideFunction>return false</hideFunction>
+            <onClick>this.appWidget.closeTab(this);</onClick>
+        </buttons>
+    </buttons>
+    <structure>
+        <structure>
+            <name>ФИО</name>
+            <field>name</field>
+            <width>auto</width>
+        </structure>
+    </structure>
+    <data>
+        <identifier>id</identifier>
+        <label>name</label>
+    </data>
+</ViewTemplate>

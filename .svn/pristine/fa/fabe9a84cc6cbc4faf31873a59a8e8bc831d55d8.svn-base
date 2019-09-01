@@ -1,0 +1,41 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-attach-point="attributeContainer_id" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-attach-point="attributeContainer_username" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-attach-point="attributeContainer_email" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-attach-point="attributeContainer_surname" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-attach-point="attributeContainer_name" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-attach-point="attributeContainer_middlename" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-attach-point="attributeContainer_roles" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

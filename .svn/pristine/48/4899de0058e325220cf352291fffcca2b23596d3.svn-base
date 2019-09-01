@@ -1,0 +1,23 @@
+<TreeRoot>
+    <identifier>id</identifier>
+    <label>name</label>
+    <items>
+        <items>
+            <id>1</id>
+            <name>Структура</name>
+            <children>
+                <children>
+                    <id>11</id>
+                    <name>Пользователи</name>
+                    <children>
+                        <children>
+                            <id>111</id>
+                            <name>Все</name>
+                            <uid>person/all</uid>
+                        </children>
+                    </children>
+                </children>
+            </children>
+        </items>
+    </items>
+</TreeRoot>

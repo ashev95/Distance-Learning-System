@@ -1,0 +1,16 @@
+package com.dls.base.service;
+
+import com.dls.base.entity.Person;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface PersonService {
+
+    Person insert(Person person);
+    void delete(long id);
+    Optional<Person> getById(long id);
+    Person update(Person person);
+    List<Person> getAll();
+
+}

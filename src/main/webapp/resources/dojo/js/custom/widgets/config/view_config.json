@@ -1,0 +1,1591 @@
+{
+  "template": {
+    "person_all": {
+      "buttons": [
+        {
+          "label": "Новый пользователь",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return false",
+          "onClick": "this.appWidget.createForm({type: 'person', title: 'Новый пользователь', selRows: this.gridView.selection.getSelected()});"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return (this.gridView.selection.getSelected().length != 1)",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "person_by_role": {
+      "buttons": [
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "group_all": {
+      "buttons": [
+        {
+          "label": "Новая группа",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false",
+          "onClick": "this.appWidget.createForm({type: 'group', title: 'Новая группа', selRows: this.gridView.selection.getSelected()});"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (this.gridView.selection.getSelected().length != 1)",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "category_all": {
+      "buttons": [
+        {
+          "label": "Новая категория",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return false",
+          "onClick": "this.appWidget.createForm({type: 'category', title: 'Новая категория', selRows: this.gridView.selection.getSelected()});"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return (this.gridView.selection.getSelected().length != 1)",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "group_my": {
+      "buttons": [
+        {
+          "label": "Новая группа",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false",
+          "onClick": "this.appWidget.createForm({type: 'group', title: 'Новая группа', selRows: this.gridView.selection.getSelected()});"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (this.gridView.selection.getSelected().length != 1)",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "group_by_curator": {
+      "buttons": [
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatelesson_active": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatelesson', title: 'Новый урок'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatelesson_by_category": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatelesson', title: 'Новый урок'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatelesson_by_version": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatelesson', title: 'Новый урок'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatelesson_by_author": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatelesson', title: 'Новый урок'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatetest_active": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatetest', title: 'Новый тест'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatetest_by_category": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatetest', title: 'Новый тест'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatetest_by_version": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatetest', title: 'Новый тест'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatetest_by_author": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatetest', title: 'Новый тест'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatecourse_active": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatecourse', title: 'Новый курс'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatecourse_by_version": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatecourse', title: 'Новый курс'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatecourse_by_author": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templatecourse', title: 'Новый курс'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templateplan_active": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templateplan', title: 'Новый план'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templateplan_by_version": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templateplan', title: 'Новый план'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templateplan_by_author": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return false",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); thisContext.appWidget.createForm({type: 'templateplan', title: 'Новый план'});"
+        },
+        {
+          "btnType": "new_version",
+          "label": "Новая версия",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || !selectedRows[0].realStatusCode || selectedRows[0].realStatusCode[0] !== 'active')",
+          "onClick": "var thisContext = this;  var selectedItem = thisContext.gridView.selection.getSelected(); item.setDisabled(true); selectedItem[0].canBeParent = true; selectedItem[0].skipDialog = true; thisContext.appWidget.createFormVersion(selectedItem[0], thisContext);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "templatetestvariant_by_parent": {
+      "buttons": [
+        {
+          "label": "Новый вариант",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.isNew || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var parentId = this.formWidget.response.attributes.id.value; this.appWidget.showFormDialog(new FormWidget({id: 0, title: 'Новый вариант', response: this.appWidget.getDataByUrl('form/templatetestvariant/templatetest/' + parentId + '/0'), isNew: true, template: 'templatetestvariant', editMode: true, appWidget: this.appWidget, parentFormWidget:this.formWidget, embView: this}));"
+        },
+        {
+          "label": "Новый вопрос",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!(!this.isNew && this.gridView.selection.getSelected().length > 0 && selectedRows[0] && selectedRows[0].type && selectedRows[0].type[0] === 'templatetestvariant' && this.formWidget.response.attributes.status.value.code.value == 'draft'))",
+          "onClick": "var selected = this.gridView.selection.getSelected()[0];this.appWidget.showFormDialog(new FormWidget({id: 0, title: 'Новый вопрос', response: this.appWidget.getDataByUrl('form/templatetestquestion/' + selected.type[0] + '/' + selected.cardId[0] + '/0'), isNew: true, template: 'templatetestquestion', editMode: true, appWidget: this.appWidget, parentFormWidget:new FormWidget({id: selected.cardId[0], response: this.appWidget.getDataByUrl('form/templatetestvariant/' + selected.cardId[0]), isNew: false, template: 'templatetestvariant', editMode: false, appWidget: this.appWidget, embView: this}), embView: this}), true);"
+        },
+        {
+          "label": "Новый ответ",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!(!this.isNew && this.gridView.selection.getSelected().length > 0 && selectedRows[0] && selectedRows[0].type && selectedRows[0].type[0] === 'templatetestquestion' && this.formWidget.response.attributes.status.value.code.value == 'draft'))",
+          "onClick": "var selected = this.gridView.selection.getSelected()[0];this.appWidget.showFormDialog(new FormWidget({id: 0, title: 'Новый ответ', response: this.appWidget.getDataByUrl('form/templatetestanswer/' + selected.type[0] + '/' + selected.cardId[0] + '/0'), isNew: true, template: 'templatetestanswer', editMode: true, appWidget: this.appWidget, parentFormWidget:new FormWidget({id: selected.cardId[0], response: this.appWidget.getDataByUrl('form/templatetestquestion/' + selected.cardId[0]), isNew: false, template: 'templatetestquestion', editMode: false, appWidget: this.appWidget, embView: this}), embView: this}), true);"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!(!this.isNew && !!selectedRows && !!selectedRows[0] && this.formWidget.response.attributes.status.value.code.value == 'draft'))",
+          "onClick": "var selected = this.gridView.selection.getSelected()[0];this.appWidget.showFormDialog(new FormWidget({id: selected.id[0], title: selected.name[0], response: this.appWidget.getDataByUrl('form/' + selected.type[0] + '/' + selected.cardId[0]), isNew: false, template: selected.type[0], editMode: true, appWidget: this.appWidget, parentFormWidget:new FormWidget({id: selected.parentCardId[0], response: this.appWidget.getDataByUrl('form/' + selected.parentType[0] + '/' + selected.parentCardId[0]), isNew: false, template: selected.parentType[0], editMode: false, appWidget: this.appWidget, embView: this}), embView: this}), true);"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.gridView.selection.getSelected().length != 1 || !this.gridView.selection.getSelected()[0] || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected(), this.gridView)"
+        }
+      ]
+    },
+    "templateresponse_by_templatecourse": {
+      "buttons": [
+        {
+          "label": "Добавить урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.isNew || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var thisContext = this; var courseId = this.formWidget.response.attributes.id.value; this.appWidget.showCustomDialog('dialog/templatelesson/by_category', true, (function(data){thisContext.appWidget.save('form/templatecoursetemplateresponse', data, true, function(){}, function(){thisContext.gridView.customRefresh();});}), (function(selected){var items = [];selected.some(function(item) {items.push({id: 0, templateCourseId: courseId, templateResponseClass: item.type[0], templateResponseId: item.cardId[0], position: 0});});return items;}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Добавить тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.isNew || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var thisContext = this; var courseId = this.formWidget.response.attributes.id.value; this.appWidget.showCustomDialog('dialog/templatetest/by_category', true, (function(data){thisContext.appWidget.save('form/templatecoursetemplateresponse', data, true, function(){}, function(){thisContext.gridView.customRefresh();});}), (function(selected){var items = [];selected.some(function(item) {items.push({id: 0, templateCourseId: courseId, templateResponseClass: item.type[0], templateResponseId: item.cardId[0], position: 0});});return items;}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Указать блок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} if (selectedRows.length != 1){return true;} if (selectedRows[0].type[0] == 'block'){return true;} if (selectedRows[0].realType[0] != 'templatecoursetemplateresponse'){return true;} return (this.isNew || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var selected = this.gridView.selection.getSelected(); this.appWidget.showBlockChangeDialog(this, selected[0]);"
+        },
+        {
+          "label": "⬆",
+          "iconClass": "",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} var selected = this.gridView.selection.getSelected(); if (selected.length != 1){return true;} if (selected[0].type[0] == 'block'){return true;} if (selected[0].realType[0] != 'templatecoursetemplateresponse'){return true;} var selectedTop = false; if (selected.length > 0) {if (selected[0].prevId[0] != 0) {selectedTop = true}} return (selected.length != 1 || !selectedTop  || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var selected = this.gridView.selection.getSelected(); this.appWidget.save('form/templatecoursetemplateresponse/up/' + selected[0].realCardId[0], '', false, function(){thisContext.getPromptDialog('Ошибка', 'Произошла неизвестная ошибка. Необходимо связаться с администратором системы').show();}, function(){thisContext.gridView.customRefresh();});"
+        },
+        {
+          "label": "⬇",
+          "iconClass": "",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} var selected = this.gridView.selection.getSelected(); if (selected.length != 1){return true;} if (selected[0].type[0] == 'block'){return true;}  if (selected[0].realType[0] != 'templatecoursetemplateresponse'){return true;} var selectedBottom = false; if (selected.length > 0) {if (selected[0].nextId[0] != 0) {selectedBottom = true}} return (selected.length != 1 || !selectedBottom || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var selected = this.gridView.selection.getSelected(); this.appWidget.save('form/templatecoursetemplateresponse/down/' + selected[0].realCardId[0], '', false, function(){thisContext.getPromptDialog('Ошибка', 'Произошла неизвестная ошибка. Необходимо связаться с администратором системы').show();}, function(){thisContext.gridView.customRefresh();});"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Убрать",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} var selected = this.gridView.selection.getSelected(); if (selected.length != 1){return true;} if (selected[0].type[0] == 'block'){return true;} if (selected[0].realType[0] != 'templatecoursetemplateresponse'){return true;} return (selected.length == 0  || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected(), this.gridView)"
+        }
+      ],
+      "onDblClick": "return;"
+    },
+    "templateresponse_by_templateplan": {
+      "buttons": [
+        {
+          "label": "Добавить урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.isNew || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var thisContext = this; var courseId = this.formWidget.response.attributes.id.value; this.appWidget.showCustomDialog('dialog/templatelesson/by_category', true, (function(data){thisContext.appWidget.save('form/templateplantemplateresponse', data, true, function(){}, function(){thisContext.gridView.customRefresh();});}), (function(selected){var items = [];selected.some(function(item) {items.push({id: 0, templatePlanId: courseId, templateResponseClass: item.type[0], templateResponseId: item.cardId[0], position: 0});});return items;}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Добавить тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.isNew || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var thisContext = this; var courseId = this.formWidget.response.attributes.id.value; this.appWidget.showCustomDialog('dialog/templatetest/by_category', true, (function(data){thisContext.appWidget.save('form/templateplantemplateresponse', data, true, function(){}, function(){thisContext.gridView.customRefresh();});}), (function(selected){var items = [];selected.some(function(item) {items.push({id: 0, templatePlanId: courseId, templateResponseClass: item.type[0], templateResponseId: item.cardId[0], position: 0});});return items;}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Добавить курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.isNew || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var thisContext = this; var courseId = this.formWidget.response.attributes.id.value; this.appWidget.showCustomDialog('dialog/templatecourse/active', true, (function(data){thisContext.appWidget.save('form/templateplantemplateresponse', data, true, function(){}, function(){thisContext.gridView.customRefresh();});}), (function(selected){var items = [];selected.some(function(item) {items.push({id: 0, templatePlanId: courseId, templateResponseClass: item.type[0], templateResponseId: item.cardId[0], position: 0});});return items;}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Указать блок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} if (selectedRows.length != 1){return true;} if (selectedRows[0].type[0] == 'block'){return true;} if (selectedRows[0].realType[0] != 'templateplantemplateresponse'){return true;} return (this.isNew || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var selected = this.gridView.selection.getSelected(); this.appWidget.showBlockChangeDialog(this, selected[0]);"
+        },
+        {
+          "label": "⬆",
+          "iconClass": "",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} var selected = this.gridView.selection.getSelected(); if (selected.length != 1){return true;} if (selected[0].type[0] == 'block'){return true;} if (selected[0].realType[0] != 'templateplantemplateresponse'){return true;} var selectedTop = false; if (selected.length > 0) {if (selected[0].prevId[0] != 0) {selectedTop = true}} return (selected.length != 1 || !selectedTop  || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var selected = this.gridView.selection.getSelected(); this.appWidget.save('form/templateplantemplateresponse/up/' + selected[0].realCardId[0], '', false, function(){thisContext.getPromptDialog('Ошибка', 'Произошла неизвестная ошибка. Необходимо связаться с администратором системы').show();}, function(){thisContext.gridView.customRefresh();});"
+        },
+        {
+          "label": "⬇",
+          "iconClass": "",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} var selected = this.gridView.selection.getSelected(); if (selected.length != 1){return true;} if (selected[0].type[0] == 'block'){return true;}  if (selected[0].realType[0] != 'templateplantemplateresponse'){return true;} var selectedBottom = false; if (selected.length > 0) {if (selected[0].nextId[0] != 0) {selectedBottom = true}} return (selected.length != 1 || !selectedBottom || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "var selected = this.gridView.selection.getSelected(); this.appWidget.save('form/templateplantemplateresponse/down/' + selected[0].realCardId[0], '', false, function(){thisContext.getPromptDialog('Ошибка', 'Произошла неизвестная ошибка. Необходимо связаться с администратором системы').show();}, function(){thisContext.gridView.customRefresh();});"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Убрать",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} var selected = this.gridView.selection.getSelected(); if (selected.length != 1){return true;} if (selected[0].type[0] == 'block'){return true;} if (selected[0].realType[0] != 'templateplantemplateresponse'){return true;} return (selected.length == 0  || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected(), this.gridView)"
+        }
+      ],
+      "onDblClick": "return;"
+    },
+    "person_by_group": {
+      "buttons": [
+        {
+          "label": "Добавить обучающегося",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (this.isNew)",
+          "onClick": "var thisContext = this; var groupId = this.formWidget.response.attributes.id.value; this.appWidget.showCustomDialog('dialog/person/by_role/student', true, (function(data){thisContext.appWidget.save('form/groupperson', data, true, function(){}, function(){thisContext.gridView.customRefresh();});}), (function(selected){var items = [];selected.some(function(item) {items.push({id: 0, groupId: groupId, personId: item.cardId[0]});});return items;}), 'Выберите обучающегося');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Убрать",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (this.gridView.selection.getSelected().length == 0)",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected(), this.gridView)"
+        }
+      ]
+    },
+    "lesson_all": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatelesson/active', false, (function(data){thisContext.appWidget.createForm({type: 'lesson', title: 'Новый урок', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.gridView.selection.getSelected().length != 1 || !this.gridView.selection.getSelected()[0] || !this.gridView.selection.getSelected()[0].type || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected(), this.gridView)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "lesson_my": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatelesson/active', false, (function(data){thisContext.appWidget.createForm({type: 'lesson', title: 'Новый урок', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "lesson_by_author": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatelesson/active', false, (function(data){thisContext.appWidget.createForm({type: 'lesson', title: 'Новый урок', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "lesson_by_curator": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatelesson/active', false, (function(data){thisContext.appWidget.createForm({type: 'lesson', title: 'Новый урок', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "lesson_by_status": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatelesson/active', false, (function(data){thisContext.appWidget.createForm({type: 'lesson', title: 'Новый урок', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "lesson_created_by_me": {
+      "buttons": [
+        {
+          "label": "Новый урок",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatelesson/active', false, (function(data){thisContext.appWidget.createForm({type: 'lesson', title: 'Новый урок', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "course_all": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatecourse/active', false, (function(data){thisContext.appWidget.createForm({type: 'course', title: 'Новый курс', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.gridView.selection.getSelected().length != 1 || !this.gridView.selection.getSelected()[0] || !this.gridView.selection.getSelected()[0].type || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected(), this.gridView)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "course_my": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatecourse/active', false, (function(data){thisContext.appWidget.createForm({type: 'course', title: 'Новый курс', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "course_by_author": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatecourse/active', false, (function(data){thisContext.appWidget.createForm({type: 'course', title: 'Новый курс', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "course_by_curator": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatecourse/active', false, (function(data){thisContext.appWidget.createForm({type: 'course', title: 'Новый курс', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "course_by_status": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatecourse/active', false, (function(data){thisContext.appWidget.createForm({type: 'course', title: 'Новый курс', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "course_created_by_me": {
+      "buttons": [
+        {
+          "label": "Новый курс",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatecourse/active', false, (function(data){thisContext.appWidget.createForm({type: 'course', title: 'Новый курс', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "plan_all": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templateplan/active', false, (function(data){thisContext.appWidget.createForm({type: 'plan', title: 'Новый план', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.gridView.selection.getSelected().length != 1 || !this.gridView.selection.getSelected()[0] || !this.gridView.selection.getSelected()[0].type || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected(), this.gridView)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "plan_my": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templateplan/active', false, (function(data){thisContext.appWidget.createForm({type: 'plan', title: 'Новый план', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "plan_by_author": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templateplan/active', false, (function(data){thisContext.appWidget.createForm({type: 'plan', title: 'Новый план', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "plan_by_curator": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templateplan/active', false, (function(data){thisContext.appWidget.createForm({type: 'plan', title: 'Новый план', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "plan_by_status": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templateplan/active', false, (function(data){thisContext.appWidget.createForm({type: 'plan', title: 'Новый план', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "plan_created_by_me": {
+      "buttons": [
+        {
+          "label": "Новый план",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templateplan/active', false, (function(data){thisContext.appWidget.createForm({type: 'plan', title: 'Новый план', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "person_by_lesson": {
+      "buttons": [
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} return (!(!this.isNew && selectedRows[0] && selectedRows[0].realStatusCode[0] === 'assigned'))",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить выбранное мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode, thisContext.gridView.selection.getSelected()[0]);},cancel: function(){item.setDisabled(false);}}).show();"
+        }
+      ],
+      "onDblClick": "return;"
+    },
+    "lesson_to_me": {
+      "buttons": [
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ],
+      "onDblClick": "this.appWidget.openTabForm(false, {type: ['traininglesson'], cardId: [item.cardId[0]], name: [item.name[0]], editMode: false});"
+    },
+    "test_all": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatetest/active', false, (function(data){thisContext.appWidget.createForm({type: 'test', title: 'Новый тест', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (this.gridView.selection.getSelected().length != 1 || !this.gridView.selection.getSelected()[0] || !this.gridView.selection.getSelected()[0].type || this.formWidget.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected(), this.gridView)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "test_my": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatetest/active', false, (function(data){thisContext.appWidget.createForm({type: 'test', title: 'Новый тест', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "test_by_author": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatetest/active', false, (function(data){thisContext.appWidget.createForm({type: 'test', title: 'Новый тест', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "test_by_curator": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatetest/active', false, (function(data){thisContext.appWidget.createForm({type: 'test', title: 'Новый тест', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "test_by_status": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatetest/active', false, (function(data){thisContext.appWidget.createForm({type: 'test', title: 'Новый тест', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "test_created_by_me": {
+      "buttons": [
+        {
+          "label": "Новый тест",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return false;",
+          "onClick": "var thisContext = this; this.appWidget.showCustomDialog('dialog/templatetest/active', false, (function(data){thisContext.appWidget.createForm({type: 'test', title: 'Новый тест', parentTemplateItem: data});}), (function(selected){return {id: selected.cardId[0], type: selected.type[0]};}), 'Выберите шаблон');"
+        },
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Удалить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (selectedRows.length != 1 || !selectedRows[0].type || selectedRows[0].realStatusCode != 'draft')",
+          "onClick": "this.appWidget.deleteFormInView(this.gridView.selection.getSelected())"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ]
+    },
+    "person_by_testvariant": {
+      "buttons": [
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "btnType": "change_variant",
+          "label": "Изменить вариант",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} return (!(!this.isNew && selectedRows[0] && (selectedRows[0].realStatusCode[0] === 'draft' || selectedRows[0].realStatusCode[0] === 'assigned')))",
+          "onClick": "var thisContext = this; var testVariantPersonId = this.gridView.selection.getSelected()[0].realCardId[0]; this.appWidget.showCustomDialog('dialog/templatetestvariant/' + testVariantPersonId, false, function(item){thisContext.appWidget.postData('form/trainingtestvariant/' + testVariantPersonId + '/change_variant/' + item.cardId[0], {}, function(errText){thisContext.appWidget.getPromptDialog('Ошибка', errText).show();}, function(){thisContext.gridView.customRefresh();});}, function(item){return item;}, 'Выберите вариант');"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} return (!(!this.isNew && selectedRows[0] && (selectedRows[0].realStatusCode[0] === 'assigned' || selectedRows[0].realStatusCode[0] === 'in_progress')))",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить выбранное мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode, thisContext.gridView.selection.getSelected()[0]);},cancel: function(){item.setDisabled(false);}}).show();"
+        }
+      ],
+      "onDblClick": "this.appWidget.showTestDialog({type: [item.realType[0]], cardId: [item.realCardId[0]], editMode: false});"
+    },
+    "testvariant_to_me": {
+      "buttons": [
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this);"
+        }
+      ],
+      "onDblClick": "this.appWidget.showTestDialog({type: ['trainingtestvariant'], cardId: [item.cardId[0]], editMode: true});"
+    },
+    "response_by_course": {
+      "buttons": [
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "btnType": "change_variant",
+          "label": "Изменить вариант",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} if (selectedRows.length != 1){return true;} if (!selectedRows[0].realType){return true;} if (selectedRows[0].realType[0] != 'trainingtestvariant'){ return true;} return (!(!this.isNew && selectedRows[0] && (selectedRows[0].realStatusCode[0] === 'draft' || selectedRows[0].realStatusCode[0] === 'assigned')))",
+          "onClick": "var thisContext = this; var testVariantPersonId = this.gridView.selection.getSelected()[0].realCardId[0]; this.appWidget.showCustomDialog('dialog/templatetestvariant/' + testVariantPersonId, false, function(item){thisContext.appWidget.postData('form/trainingtestvariant/' + testVariantPersonId + '/change_variant/' + item.cardId[0], {}, function(errText){thisContext.appWidget.getPromptDialog('Ошибка', errText).show();}, function(){thisContext.gridView.customRefresh();});}, function(item){return item;}, 'Выберите вариант');"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить мероприятие",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} if (!selectedRows[0].realType){return true;} if (selectedRows[0].realType[0] == 'traininglesson' || selectedRows[0].realType[0] == 'trainingtestvariant' || selectedRows[0].realType[0] == 'block'){ return true;} return (!(!this.isNew && selectedRows[0] && selectedRows[0].realStatusCode[0] === 'in_progress'))",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить выбранное мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode, thisContext.gridView.selection.getSelected()[0]);},cancel: function(){item.setDisabled(false);}}).show();"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить урок",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} if (!selectedRows[0].realType){return true;} if (selectedRows[0].realType[0] != 'traininglesson'){ return true;} return (!(!this.isNew && selectedRows[0] && selectedRows[0].realStatusCode[0] === 'assigned'))",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить выбранное мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode, thisContext.gridView.selection.getSelected()[0]);},cancel: function(){item.setDisabled(false);}}).show();"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить тест",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} if (!selectedRows[0].realType){return true;} if (selectedRows[0].realType[0] != 'trainingtestvariant'){ return true;} return (!(!this.isNew && selectedRows[0] && (selectedRows[0].realStatusCode[0] === 'assigned' || selectedRows[0].realStatusCode[0] === 'in_progress')))",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить выбранное мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode, thisContext.gridView.selection.getSelected()[0]);},cancel: function(){item.setDisabled(false);}}).show();"
+        }
+      ],
+      "onDblClick": "return;"
+    },
+    "response_by_plan": {
+      "buttons": [
+        {
+          "label": "Обновить",
+          "iconClass": "refresh-btn-16",
+          "hideFunction": "return false",
+          "onClick": "gridView.customRefresh();"
+        },
+        {
+          "btnType": "change_variant",
+          "label": "Изменить вариант",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} if (selectedRows.length != 1){return true;} if (!selectedRows[0].realType){return true;} if (selectedRows[0].realType[0] != 'trainingtestvariant'){ return true;} return (!(!this.isNew && selectedRows[0] && (selectedRows[0].realStatusCode[0] === 'draft' || selectedRows[0].realStatusCode[0] === 'assigned')))",
+          "onClick": "var thisContext = this; var testVariantPersonId = this.gridView.selection.getSelected()[0].realCardId[0]; this.appWidget.showCustomDialog('dialog/templatetestvariant/' + testVariantPersonId, false, function(item){thisContext.appWidget.postData('form/trainingtestvariant/' + testVariantPersonId + '/change_variant/' + item.cardId[0], {}, function(errText){thisContext.appWidget.getPromptDialog('Ошибка', errText).show();}, function(){thisContext.gridView.customRefresh();});}, function(item){return item;}, 'Выберите вариант');"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить мероприятие",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} if (!selectedRows[0].realType){return true;}  if (selectedRows[0].realType[0] == 'traininglesson' || selectedRows[0].realType[0] == 'trainingtestvariant' || selectedRows[0].realType[0] == 'block'){ return true;}  return (!(!this.isNew && selectedRows[0] && selectedRows[0].realStatusCode[0] === 'in_progress'))",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить выбранное мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode, thisContext.gridView.selection.getSelected()[0]);},cancel: function(){item.setDisabled(false);}}).show();"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить урок",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} if (!selectedRows[0].realType){return true;} if (selectedRows[0].realType[0] != 'traininglesson'){ return true;} return (!(!this.isNew && selectedRows[0] && selectedRows[0].realStatusCode[0] === 'assigned'))",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить выбранное мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode, thisContext.gridView.selection.getSelected()[0]);},cancel: function(){item.setDisabled(false);}}).show();"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить тест",
+          "iconClass": "delete-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} if (selectedRows.length != 1){return true;} if (!selectedRows[0].realType){return true;} if (selectedRows[0].realType[0] != 'trainingtestvariant'){ return true;} return (!(!this.isNew && selectedRows[0] && (selectedRows[0].realStatusCode[0] === 'assigned' || selectedRows[0].realStatusCode[0] === 'in_progress')))",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить выбранное мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode, thisContext.gridView.selection.getSelected()[0]);},cancel: function(){item.setDisabled(false);}}).show();"
+        }
+      ],
+      "onDblClick": "return;"
+    }
+  }
+}

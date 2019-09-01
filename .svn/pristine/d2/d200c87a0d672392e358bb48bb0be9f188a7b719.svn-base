@@ -1,0 +1,77 @@
+package com.dls.base.utils;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Properties;
+
+public class Utils {
+
+	@Value(value = "classpath:app.properties")
+	private Resource appResource;
+
+	Properties appProperties = null;
+
+	HashMap <String, String> roles = null;
+
+	private Properties getAppProperties(){
+		if (this.appProperties == null){
+			try {
+				InputStream inputStream = this.appResource.getInputStream();
+				this.appProperties = new Properties();
+				this.appProperties.load(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return this.appProperties;
+	}
+
+	public String getAppProperty(String key){
+		return this.getAppProperties().getProperty(key);
+	}
+
+	public HashMap<String, String> getRoles(){
+		if (this.roles == null){
+			HashMap<String, HashMap<String, String>> tmpRoles = new HashMap<String, HashMap<String, String>>();
+			for (Object key : this.getAppProperties().keySet()){
+				String k = (String) key;
+				String [] arr = k.split("\\.");
+				if (arr.length == 3){
+					if (arr[0].equals("roles")){
+						HashMap<String, String> tmpRole = new HashMap<String, String>();
+						if (tmpRoles.containsKey(arr[1])){
+							tmpRole = tmpRoles.get(arr[1]);
+						}
+						tmpRole.put(arr[2], this.getAppProperty(k));
+						tmpRoles.put(arr[1], tmpRole);
+					}
+				}
+			}
+			this.roles = new HashMap<String, String>();
+			for (String key : tmpRoles.keySet()){
+				HashMap<String, String> tmpRole = tmpRoles.get(key);
+				if (tmpRole.containsKey("code") && tmpRole.containsKey("name")){
+					this.roles.put(tmpRole.get("code"), tmpRole.get("name"));
+				}
+			}
+		}
+		return this.roles;
+	}
+
+	public static String inputStreamToString(InputStream is) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		String line;
+		BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF8"));
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+		}
+		br.close();
+		return sb.toString();
+	}
+
+
+}

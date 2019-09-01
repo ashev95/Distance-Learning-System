@@ -1,0 +1,586 @@
+{
+  "template": {
+    "person": {
+      "buttons": [
+        {
+          "label": "Изменить пароль",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return (!this.editMode || this.isNew)",
+          "onClick": "this.appWidget.showPasswordDialog(this)"
+        },{
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return (!this.editMode)",
+          "onClick": "item.setDisabled(true);this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return (!!this.editMode)",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "username" : {"label": "Логин", "type": "username"},
+        "email" :  {"label": "Почта", "type": "string"},
+        "surname" :  {"label": "Фамилия", "type": "string"},
+        "name" :  {"label": "Имя", "type": "string"},
+        "middlename" : {"label": "Отчество", "type": "string"},
+        "gender" : {"label": "Пол", "type": "gender"},
+        "additionally" : {"label": "Дополнительно", "type": "string"},
+        "roles" : {"label": "Роли", "type": "roles"}
+      }
+    },
+    "group": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!this.editMode)",
+          "onClick": "item.setDisabled(true);this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.editMode)",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "curator" : {"label": "Куратор", "type": "person", "editByRole": "ADMINISTRATOR"}
+      }
+    },
+    "category": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return (!this.editMode)",
+          "onClick": "item.setDisabled(true);this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR')){return true;} return (!!this.editMode)",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"}
+      }
+    },
+    "templatelesson": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!this.editMode || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!!this.editMode || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Активировать",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'active', this.editMode)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"},
+        "category" : {"label": "Категория", "type": "category"},
+        "status" : {"label": "Статус", "type": "status"},
+        "author" : {"label": "Автор", "type": "person"},
+        "dateCreate" : {"label": "Дата создания", "type": "date"}
+      }
+    },
+    "templatetest": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!this.editMode || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!!this.editMode || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Активировать",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'active', this.editMode)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"},
+        "category" : {"label": "Категория", "type": "category"},
+        "status" : {"label": "Статус", "type": "status"},
+        "author" : {"label": "Автор", "type": "person"},
+        "dateCreate" : {"label": "Дата создания", "type": "date"},
+        "byOrder" : {"label": "Прохождение вопросов по порядку", "type": "boolean"},
+        "deprecateChangeAnswerCount" : {"label": "Допустимое количество возвратов к вопросу", "type": "number"},
+        "timeLimit" : {"label": "Ограничение прохождения (в минутах)", "type": "number"}
+      }
+    },
+    "templatecourse": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!this.editMode || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!!this.editMode || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Активировать",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'active', this.editMode)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"},
+        "status" : {"label": "Статус", "type": "status"},
+        "author" : {"label": "Автор", "type": "person"},
+        "dateCreate" : {"label": "Дата создания", "type": "date"}
+      }
+    },
+    "templateplan": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!this.editMode || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!!this.editMode || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Активировать",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'active', this.editMode)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"},
+        "status" : {"label": "Статус", "type": "status"},
+        "author" : {"label": "Автор", "type": "person"},
+        "dateCreate" : {"label": "Дата создания", "type": "date"}
+      }
+    },
+    "traininglesson": {
+      "buttons": [
+        {
+          "btnType": "change_status",
+          "label": "Изучен",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,STUDENT')){return true;} return (!!this.isNew || this.response.attributes.original_status.value.code.value != 'assigned')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'studied', this.editMode)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"}
+      }
+    },
+    "templatetestvariant": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!this.editMode)",
+          "onClick": "formWidget.appWidget.saveForm(formWidget, callbackError, callbackSuccess)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "number" : {"label": "Номер варианта", "type": "number"},
+        "author" : {"label": "Автор", "type": "person"},
+        "templatetest" : {"label": "Идентификатор шаблона теста", "type": "parent"}
+      }
+    },
+    "templatetestquestion": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!this.editMode)",
+          "onClick": "formWidget.appWidget.saveForm(formWidget, callbackError, callbackSuccess)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "number" : {"label": "Номер вопроса", "type": "number"},
+        "content" : {"label": "Содержание", "type": "string"},
+        "scorePositive" : {"label": "Добавлять баллов за правильный ответ", "type": "number"},
+        "scoreNegative" : {"label": "Вычитать баллов за неправильный ответ", "type": "number"},
+        "author" : {"label": "Автор", "type": "person"},
+        "templatetestvariant" : {"label": "Идентификатор шаблона варианта", "type": "parent"}
+      }
+    },
+    "templatetestanswer": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,ADMINISTRATOR_OF_EDUCATIONAL_PROCESS')){return true;} return (!this.editMode)",
+          "onClick": "formWidget.appWidget.saveForm(formWidget, callbackError, callbackSuccess)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "number" : {"label": "Номер ответа", "type": "number"},
+        "content" : {"label": "Содержание", "type": "string"},
+        "correct" : {"label": "Верный ответ", "type": "boolean"},
+        "author" : {"label": "Автор", "type": "person"},
+        "templatetestquestion" : {"label": "Идентификатор шаблона вопроса", "type": "parent"}
+      }
+    },
+    "lesson": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!this.editMode)",
+          "onClick": "this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!(!this.editMode && this.response.attributes.status.value.code.value === 'draft'))",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Начать обучение",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'in_progress', this.editMode)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'in_progress')",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode);},cancel: function(){item.setDisabled(false);}}).show();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"},
+        "templatelesson" : {"label": "Шаблон урока", "type": "template"},
+        "status" : {"label": "Статус", "type": "status"},
+        "group" : {"label": "Группа", "type": "group"},
+        "curator" : {"label": "Куратор", "type": "person", "editByRole": "ADMINISTRATOR"},
+        "dateStart" : {"label": "Дата начала", "type": "date"},
+        "dateEnd" : {"label": "Дата завершения", "type": "date"},
+        "author" : {"label": "Автор", "type": "person"},
+        "dateCreate" : {"label": "Дата создания", "type": "date"}
+      }
+    },
+    "course": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!this.editMode)",
+          "onClick": "this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!(!this.editMode && this.response.attributes.status.value.code.value === 'draft'))",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Начать обучение",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'in_progress', this.editMode)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'in_progress')",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode);},cancel: function(){item.setDisabled(false);}}).show();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"},
+        "templatecourse" : {"label": "Шаблон курса", "type": "template"},
+        "status" : {"label": "Статус", "type": "status"},
+        "group" : {"label": "Группа", "type": "group"},
+        "curator" : {"label": "Куратор", "type": "person", "editByRole": "ADMINISTRATOR"},
+        "dateStart" : {"label": "Дата начала", "type": "date"},
+        "dateEnd" : {"label": "Дата завершения", "type": "date"},
+        "author" : {"label": "Автор", "type": "person"},
+        "dateCreate" : {"label": "Дата создания", "type": "date"}
+      }
+    },
+    "plan": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!this.editMode)",
+          "onClick": "this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!(!this.editMode && this.response.attributes.status.value.code.value === 'draft'))",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Начать обучение",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'in_progress', this.editMode)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'in_progress')",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode);},cancel: function(){item.setDisabled(false);}}).show();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"},
+        "templateplan" : {"label": "Шаблон курса", "type": "template"},
+        "status" : {"label": "Статус", "type": "status"},
+        "group" : {"label": "Группа", "type": "group"},
+        "curator" : {"label": "Куратор", "type": "person", "editByRole": "ADMINISTRATOR"},
+        "dateStart" : {"label": "Дата начала", "type": "date"},
+        "dateEnd" : {"label": "Дата завершения", "type": "date"},
+        "author" : {"label": "Автор", "type": "person"},
+        "dateCreate" : {"label": "Дата создания", "type": "date"}
+      }
+    },
+    "test": {
+      "buttons": [
+        {
+          "btnType": "save",
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!this.editMode)",
+          "onClick": "this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!(!this.editMode && this.response.attributes.status.value.code.value === 'draft'))",
+          "onClick": "item.setDisabled(true);this.appWidget.editForm(this)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Начать тестирование",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'draft')",
+          "onClick": "item.setDisabled(true);this.appWidget.changeStatus(this, 'in_progress', this.editMode)"
+        },
+        {
+          "btnType": "change_status",
+          "label": "Отменить",
+          "iconClass": "add-btn-16",
+          "hideFunction": "if (!this.appWidget.currentUserHasAtLeastRole('ADMINISTRATOR,CURATOR')){return true;} return (!!this.isNew || this.response.attributes.status.value.code.value != 'in_progress')",
+          "onClick": "var thisContext = this; item.setDisabled(true);this.appWidget.getConfirmDialog(null, 'Вы действительно хотите отменить мероприятие?', {ok: function(){ thisContext.appWidget.changeStatus(thisContext, 'canceled', thisContext.editMode);},cancel: function(){item.setDisabled(false);}}).show();"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+      {
+        "id" : {"label": "Идентификатор", "type": "id"},
+        "name" : {"label": "Название", "type": "string"},
+        "description" : {"label": "Описание", "type": "string"},
+        "templatetest" : {"label": "Шаблон теста", "type": "template"},
+        "status" : {"label": "Статус", "type": "status"},
+        "group" : {"label": "Группа", "type": "group"},
+        "curator" : {"label": "Куратор", "type": "person", "editByRole": "ADMINISTRATOR"},
+        "dateStart" : {"label": "Дата начала", "type": "date"},
+        "dateEnd" : {"label": "Дата завершения", "type": "date"},
+        "author" : {"label": "Автор", "type": "person"},
+        "dateCreate" : {"label": "Дата создания", "type": "date"}
+      }
+    },
+    "student_info": {
+      "buttons": [
+        {
+          "label": "Сформировать",
+          "iconClass": "save-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.buildReport(this, item)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes": {
+      }
+    },
+    "student_completed_trainings": {
+        "buttons": [
+          {
+            "label": "Сформировать",
+            "iconClass": "save-btn-16",
+            "hideFunction": "return false",
+            "onClick": "item.setDisabled(true);this.appWidget.buildReport(this, item)"
+          },
+          {
+            "label": "Закрыть",
+            "iconClass": "close-btn-16",
+            "hideFunction": "return false",
+            "onClick": "item.setDisabled(true);this.appWidget.closeTab(this)"
+          }
+        ],
+        "attributes":
+        {
+
+        }
+    }
+  }
+}

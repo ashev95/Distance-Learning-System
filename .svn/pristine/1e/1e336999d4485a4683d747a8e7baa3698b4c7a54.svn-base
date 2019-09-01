@@ -1,0 +1,11 @@
+<FormTemplate>
+    <attributeTitles>
+        <id>Идентификатор</id>
+        <username>Логин</username>
+        <email>Почта</email>
+        <surname>Фамилия</surname>
+        <name>Имя</name>
+        <middlename>Отчество</middlename>
+        <roles>Роли</roles>
+    </attributeTitles>
+</FormTemplate>

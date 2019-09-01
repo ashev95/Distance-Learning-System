@@ -1,0 +1,44 @@
+<ViewTemplate>
+    <structure>
+        <structure>
+            <name>Пользователь</name>
+            <field>name</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Вариант</name>
+            <field>variant</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Статус</name>
+            <field>realStatusName</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Начало</name>
+            <field>realStartDate</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Конец</name>
+            <field>realEndDate</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Количество верных ответов</name>
+            <field>correctAnswerRatio</field>
+            <width>auto</width>
+        </structure>
+        <structure>
+            <name>Заработано баллов</name>
+            <field>scoreRatio</field>
+            <width>auto</width>
+        </structure>
+    </structure>
+    <data>
+        <identifier>id</identifier>
+        <label>name</label>
+    </data>
+    <uid>person_by_testvariant</uid>
+</ViewTemplate>

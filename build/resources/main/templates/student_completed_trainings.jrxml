@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="student_info" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="27f6ca5e-73bf-4452-9329-c0cba69876cc">
+	<property name="ireport.zoom" value="1.1000000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="STUDENT_NAME" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select test_variant_person.id as id,
+			'Тест' as type, test.name as name, test.date_start as trainingstart, test.date_end as trainingend, test_variant_person.date_start as variantstart, test_variant_person.date_end as variantend, (CAST(test_variant_person.total_score AS text) || '/' || CAST(test_variant_person.available_score AS text)) as score from status
+			join test on status.id = test.status_id
+			join test_variant_person on test_variant_person.test_id = test.id
+			 where test_variant_person.test_id in (
+			select test.id from test
+			where test.id not in (
+			select test.id from test
+			join course_response on test.id = course_response.response_id and course_response.response_class = 'test')
+			and test.id not in (
+			select test.id from test
+			join plan_response on test.id = plan_response.response_id and plan_response.response_class = 'test'
+			)
+			)
+			and status.code = 'completed'
+			and test_variant_person.person_id = 1
+			UNION
+			select test_variant_person.id as id,
+			'Курс' as type, course.name as name, course.date_start as trainingstart, course.date_end as trainingend, test_variant_person.date_start as variantstart, test_variant_person.date_end as variantend, (CAST(test_variant_person.total_score AS text) || '/' || CAST(test_variant_person.available_score AS text)) as score from status
+			join course on status.id = course.status_id
+			join course_response on course.id = course_response.course_id
+			join test on course_response.response_id = test.id and course_response.response_class = 'test'
+			join test_variant_person on test.id = test_variant_person.test_id
+			where course_response.course_id in (
+			select course.id from course
+			where course.id not in (
+			select course.id from course
+			join plan_response on course.id = plan_response.response_id and plan_response.response_class = 'course'
+			)
+			) and status.code = 'completed'
+			and test_variant_person.person_id = 1
+			UNION
+			select test_variant_person.id as id,
+			'План' as type, plan.name as name, plan.date_start as trainingstart, plan.date_end as trainingend, test_variant_person.date_start as variantstart, test_variant_person.date_end as variantend, (CAST(test_variant_person.total_score AS text) || '/' || CAST(test_variant_person.available_score AS text)) as score from status
+			join plan on status.id = plan.status_id
+			join plan_response on plan.id = plan_response.plan_id and plan_response.response_class = 'test'
+			join test on plan_response.response_id = test.id
+			join test_variant_person on test.id = test_variant_person.test_id and test_variant_person.person_id = 1
+			and status.code = 'completed'
+			and test_variant_person.person_id = 1
+			UNION
+			select test_variant_person.id as id,
+			'План' as type, plan.name as name, plan.date_start as trainingstart, plan.date_end as trainingend, test_variant_person.date_start as variantstart, test_variant_person.date_end as variantend, (CAST(test_variant_person.total_score AS text) || '/' || CAST(test_variant_person.available_score AS text)) as score from status
+			join plan on status.id = plan.status_id
+			join plan_response on plan.id = plan_response.plan_id and plan_response.response_class = 'course'
+			join course on plan_response.response_id = course.id
+			join course_response on course.id = course_response.course_id and course_response.response_class = 'test'
+			join test on course_response.response_id = test.id
+			join test_variant_person on test.id = test_variant_person.test_id and test_variant_person.person_id = 1
+			and status.code = 'completed'
+			and test_variant_person.person_id = 1
+			order by 1]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="type" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="trainingstart" class="java.sql.Timestamp"/>
+	<field name="trainingend" class="java.sql.Timestamp"/>
+	<field name="variantstart" class="java.sql.Timestamp"/>
+	<field name="variantend" class="java.sql.Timestamp"/>
+	<field name="score" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="59" uuid="6c3e87d7-b128-4368-80d7-db672f4957a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Сведения о тестировании студента]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="59" width="802" height="40" uuid="e6ff7439-4b24-4a56-9fbe-8ce6da528720"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{STUDENT_NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="117" height="31" uuid="e8e72279-cee8-4a38-a2a5-36362c939417"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Мероприятие]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="10" width="99" height="31" uuid="35a0508a-5a6a-4a99-8849-be308ae47150"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Начало мероприятия]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="10" width="98" height="31" uuid="dfe37275-277f-442a-ab03-24363a5f7ce5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Начало тестирования]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="60" width="802" height="1" uuid="63dec1a0-0f1f-48a4-885e-eb047f08f108"/>
+			</line>
+			<staticText>
+				<reportElement x="131" y="10" width="115" height="31" uuid="364dac3d-8da6-47c6-b8a3-376b08de57fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Название мероприятия]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="587" y="10" width="100" height="31" uuid="42a5d9e0-2d5c-4e04-8670-ff55a70bdb34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Конец тестирования]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="10" width="97" height="31" uuid="3c9c6882-a938-4fdf-8d8c-531ba483fbe0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Конец мероприятия]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="697" y="10" width="93" height="31" uuid="a652950b-015e-410c-8cd4-27a82460158e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Заработано баллов]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="74" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="17" width="117" height="37" uuid="5b0e1a5e-030c-404b-bf46-af3d26a23269"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="479" y="17" width="98" height="37" uuid="4f9048b9-f1f3-490c-9655-4acb2f34c364"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{variantstart}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="20" y="68" width="758" height="1" uuid="910660fb-0929-4d90-8363-ba584c0ffa73"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="131" y="17" width="115" height="37" uuid="753c3d9d-e321-4259-ae48-127b2864cf7e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="259" y="17" width="99" height="37" uuid="fd5b3f63-6596-4bdb-abf0-659a172efcdf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trainingstart}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="587" y="17" width="98" height="37" uuid="10b22b67-810f-4666-9da9-5c880d7d4f58"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{variantend}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="369" y="17" width="97" height="37" uuid="fbf49b45-ad97-4f1e-b76b-d47f653885fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trainingend}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="697" y="17" width="93" height="37" uuid="ba57e2f6-d335-4e19-92ba-4d7cb37861ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{score}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="762" y="17" width="28" height="20" uuid="4cf517bc-e1b7-4915-b404-e6005a30b0e2"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

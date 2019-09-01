@@ -1,0 +1,59 @@
+package com.dls.base.controller;
+
+import com.dls.base.entity.Person;
+import com.dls.base.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/person")
+public class PersonRestController
+{
+
+	private final PersonRepository personRepository;
+
+	@Autowired
+	PersonRestController(PersonRepository personRepository) {
+		this.personRepository = personRepository;
+	}
+
+	@GetMapping(value = "/all")
+	public List<Person> getAll() {
+		List<Person> persons = this.personRepository.findAll();
+		return persons;
+	}
+
+	@GetMapping("/{id}")
+	Optional<Person> getById(@PathVariable long id) {
+		this.validate(id);
+		return this.personRepository.findById(id);
+	}
+
+	private void validate(long id) {
+		this.personRepository.findById(id).orElseThrow(
+				() -> new PersonNotFoundException(id));
+	}
+
+	/*
+	@PostMapping()
+	public Person save(@RequestBody Person person) {
+		return personRepository.save(person);
+	}
+
+	@PutMapping(value = "/{id}")
+	public Person update(@PathVariable long id, @RequestBody Person person) {
+		this.validate(id);
+		return personRepository.save(person);
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable long id) {
+		this.validate(id);
+		personRepository.deleteById(id);
+	}
+	 */
+
+}

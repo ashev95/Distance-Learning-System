@@ -1,0 +1,173 @@
+define([
+    "dojo/_base/declare",
+    "dijit/_WidgetBase",
+    "dijit/_TemplatedMixin",
+	"dijit/_WidgetsInTemplateMixin",
+	"dojo/request",
+	"widgets/GridWidget",
+    "dijit/MenuBar",
+    "dijit/MenuItem",
+    "dojo/dom-style",
+    "dojo/dom-form",
+    "dojo/query",
+    "dojo/dom-construct",
+
+    "dijit/form/TextBox",
+    "dijit/form/NumberTextBox",
+    "dijit/form/MultiSelect",
+    "dijit/layout/ContentPane",
+    "dijit/form/Button",
+
+    "dijit/form/Form",
+
+    "widgets/TextListWidget",
+    "widgets/ValidationTextAreaWidget",
+
+    "dojo/text!./template/forms/personEdit.html",
+    "dojo/text!./template/forms/personRead.html",
+
+    "dojox/validate/web", "dojox/validate/us", "dojox/validate/check"
+	
+], function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, request, GridWidget, MenuBar, MenuItem, domStyle, domForm, query, domConstruct,
+            TextBox, NumberTextBox, MultiSelect, ContentPane, Button, Form, TextListWidget, ValidationTextAreaWidget,
+            formPersonEdit, formPersonRead,
+            validate
+    ){
+    return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+		
+		response: {type:'undefined'},
+		uid: "",
+		type: "",
+        baseClass: 'FormWidget',
+		appWidget: undefined,
+		isNew: false,
+        template:undefined,
+        templateString:undefined,
+        editMode:false,
+        menuBar: undefined,
+        form:undefined,
+
+        listOfTemplates: {
+            personEdit:formPersonEdit,
+            personRead:formPersonRead
+        },
+
+        getFormObject: function() {
+            var formObject = domForm.toObject(this.form.domNode);
+            var newFormObject = dojo.clone(formObject);
+            var keys = Object.keys(formObject);
+            keys.some(function(key) {
+                var widgetArray = dojo.query('*[name=' + key + ']');
+                if (widgetArray.length > 0 && widgetArray[0] && widgetArray[0].id){
+                    var widget = dijit.byId(widgetArray[0].id);
+                    if (widget.baseClass.split(' ').indexOf('ValidationTextAreaWidget') >= 0){
+                        newFormObject[key] = widget.getValueArray();
+                    }
+                }
+            });
+            return newFormObject;
+        },
+
+        validate: function (){
+		    return (this.form.validate());
+        },
+
+        computeHideFunction: function (){
+            this.menuBar.getChildren().some(function(button) {
+                if (button.computeHF()){
+                    domStyle.set(button.domNode, "display", "none");
+                }else{
+                    domStyle.set(button.domNode, "display", "block");
+                }
+            });
+        },
+
+		buildRendering: function(){
+            this.templateString = this.listOfTemplates[this.template + (this.editMode ? 'Edit' : 'Read')];
+            this.inherited(arguments);
+		},
+
+		postCreate: function(){
+			this.inherited(arguments);
+            //
+            var attrNameArray = Object.keys(this.response.attributes);
+            var thisContext = this;
+            dojo.forEach(attrNameArray, function(attrName, i){
+                if (thisContext['label_' + attrName]){
+                    if (!!thisContext.editMode){
+                        thisContext['label_' + attrName].for = attrName;
+                    }
+                    thisContext['label_' + attrName].innerText = thisContext.appWidget.formConfig.template[thisContext.template].attributes[attrName] + ":";
+                }
+                if (thisContext['component_' + attrName]){
+                    switch(thisContext.template) {
+                        case 'person':
+                            switch(attrName) {
+                                case 'roles': //debug
+                                    var value = [{code:"code1", name: "name1"}, {code:"code2", name: "name2"}, {code:"code3", name: "name3"}, {code:"code4", name: "name4"}, {code:"code5", name: "name5"}, {code:"code6", name: "name6"}];
+                                    //thisContext.response.attributes[attrName].value.some(function(entry) {
+                                    //    value[value.length] = entry.name;
+                                    //});
+                                    if (!!thisContext.editMode){
+                                        thisContext['component_' + attrName].setValueArray(value);
+                                        /*
+                                         var v = [];
+                                         value.some(function(obj) {
+                                         v.push(obj.name);
+                                         });
+                                         thisContext['component_' + attrName].set("value", v.join("\n"));
+                                         */
+                                        //thisContext['component_' + attrName].set("value", value);
+                                    }else{
+                                        //thisContext['component_' + attrName].innerText = value.join(", ");
+                                    }
+                                    break;
+                                default:
+                                    //Nothing
+                            }
+                            break;
+                        default:
+                            //Nothing
+                    }
+                }
+                //thisContext[attrName] = thisContext._buildWidgetAttribute(thisContext.response.attributes[attrName]);
+            });
+            //
+            var pMenuBar = new MenuBar({});
+            this.menuBar = pMenuBar;
+
+            if (this.description && this.response.data.description){
+                if (this.editMode){
+                    this.description.attr("value", this.response.data.description)
+                }else{
+                    this.description.innerHTML = this.response.data.description;
+                }
+            }
+
+            var thisContext = this;
+            if (this.appWidget.formConfig.template[this.template]){
+                this.response.buttons = this.appWidget.formConfig.template[this.template].buttons;
+            }
+            if (!!this.response.buttons && !!this.response.buttons[0]){
+                this.response.buttons.reverse().some(function(button) {
+                    pMenuBar.addChild(
+                        new MenuItem({
+                            label: button.label,
+                            iconClass: button.iconClass,
+                            onClick: function (item) {eval("(function(){" + button.onClick + "})").call(thisContext);},
+                            appWidget: this.appWidget,
+                            computeHF: function (items) {return eval("(function(){" + button.hideFunction + "})").call(thisContext, items);}
+                        })
+                    );
+                });
+            }
+
+            this.computeHideFunction();
+
+            pMenuBar.placeAt(this.domNode, 'first');
+
+		}
+		
+    });
+	
+});

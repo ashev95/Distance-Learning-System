@@ -1,0 +1,13 @@
+package com.dls.base.ui.form;
+
+import java.util.HashMap;
+
+public class FormAttribute {
+
+	public String name;
+	public String type;
+	public Object value;
+	public int position;
+	public HashMap<String, String> source;
+
+}

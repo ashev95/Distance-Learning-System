@@ -1,0 +1,11 @@
+package com.dls.base;
+
+import java.util.HashMap;
+
+public class ViewStructure {
+
+	public String name;
+	public String field;
+	public String width;
+
+}

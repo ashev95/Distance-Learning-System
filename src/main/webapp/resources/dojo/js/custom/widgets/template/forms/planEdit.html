@@ -1,0 +1,192 @@
+<div data-dojo-type="dijit/ContentPane">
+	<div data-dojo-type="dijit/form/Form" data-dojo-attach-point='form' encType="multipart/form-data" action="" method="">
+		<table style="padding: 10px;">
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_template'>Шаблон</span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='component_template'>${response.attributes.templatePlan.value.name.value} (Версия ${response.attributes.templatePlan.value.version.value})</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_name'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_name'
+							   type="text"
+							   name="name"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Название должно содержать не более 255 символов",
+							   style:{width: "99%"}'
+							   missingMessage="Поле Название обязательно для заполнения"
+							   value="${response.attributes.name.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_description'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<input data-dojo-attach-point='component_description'
+							   type="text"
+							   name="description"
+							   required="true"
+							   data-dojo-type="dijit/form/ValidationTextBox"
+							   data-dojo-props='regExp:"^.{1,255}",
+							   invalidMessage:"Поле Описание должно содержать не более 255 символов",
+							   style:{width: "99%"}',
+							   missingMessage="Поле Описание обязательно для заполнения"
+							   value="${response.attributes.description.value}"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_status'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_status'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_group'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<script>
+                            require(["widgets/ValidationAttributeWidget"]);
+						</script>
+						<input data-dojo-attach-point="component_group"
+								  name="group"
+								  required="true"
+								  data-dojo-type="ValidationAttributeWidget"
+								  missingMessage="Поле Группа обязательно для заполнения"
+								  readonly
+						></input>
+					</div>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_group_button_1"
+							onClick="var widget = dijit.byId(dojo.query('*[name=group]')[0].id); var appWidget = this.getParent().getParent().appWidget; appWidget.showCustomDialog((appWidget.currentUserHasAtLeastRole('ADMINISTRATOR') ? 'dialog/group/active' : 'dialog/group/active_by_current_curator'), false, (function(selected){widget.setValue(selected)}), (function(selected){var o = {id: {value: selected.cardId[0]}, name: {value: selected.name[0]}}; return o;}));"
+							type="button">...</button>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_group_button_2"
+							onClick="var widget = dijit.byId(dojo.query('*[name=group]')[0].id); widget.clearValue();"
+							type="button">Х</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<label data-dojo-attach-point='label_curator'></label>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<script>
+                            require(["widgets/ValidationAttributeWidget"]);
+						</script>
+						<input data-dojo-attach-point="component_curator"
+							   name="curator"
+							   required="true"
+							   data-dojo-type="ValidationAttributeWidget"
+							   missingMessage="Поле Куратор обязательно для заполнения"
+							   readonly
+						></input>
+					</div>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_curator_button_1"
+							onClick="var widget = dijit.byId(dojo.query('*[name=curator]')[0].id); var appWidget = this.getParent().getParent().appWidget; appWidget.showCustomDialog('dialog/person/by_role/curator', false, (function(selected){widget.setValue(selected)}), (function(selected){var o = {id: {value: selected.cardId[0]}, name: {value: selected.name[0]}}; return o;}));"
+							type="button">...</button>
+				</td>
+				<td>
+					<button data-dojo-type="dijit/form/Button" data-dojo-attach-point="component_curator_button_2"
+							onClick="var widget = dijit.byId(dojo.query('*[name=curator]')[0].id); widget.clearValue();"
+							type="button">Х</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateStart'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateStart'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateEnd'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateEnd'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_author'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_author'></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<span data-dojo-attach-point='label_dateCreate'></span>
+					</div>
+				</td>
+				<td>
+					<div data-dojo-type="dijit/layout/ContentPane">
+						<div data-dojo-attach-point='component_dateCreate'></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table style="padding: 10px; width: 100%;">
+			<tr>
+				<td colspan="2">
+					<div data-dojo-attach-point='embView' data-dojo-type="widgets/GridWidget" data-dojo-props="formWidget:this">
+					</div>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

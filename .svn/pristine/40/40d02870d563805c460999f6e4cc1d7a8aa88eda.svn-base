@@ -1,0 +1,10 @@
+<FormTemplate>
+    <buttons>
+        <buttons>
+            <label>Закрыть</label>
+            <iconClass>close-btn-16</iconClass>
+            <hideFunction>return false</hideFunction>
+            <onClick>this.appWidget.closeTab(this);</onClick>
+        </buttons>
+    </buttons>
+</FormTemplate>

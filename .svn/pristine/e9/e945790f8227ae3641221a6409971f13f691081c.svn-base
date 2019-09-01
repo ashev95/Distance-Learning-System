@@ -1,0 +1,21 @@
+package com.dls.base.repository;
+
+import com.dls.base.entity.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Set;
+
+public interface PersonRepository extends JpaRepository<Person, Long> {
+
+	@Query("select p from Person p where p.id = :id")
+	Person findByPersonId(@Param("id") long id);
+
+	@Query(value = "select * from person " +
+			"join person_role on person.person_id = person_role.person_id " +
+			"where person_role.role_code = ?1"
+			, nativeQuery = true)
+	Set<Person> findByRoleCode(String role_code);
+
+}

@@ -1,0 +1,121 @@
+package com.dls.base.entity;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity(name = "Person")
+@Table(name = "person")
+public class Person implements Serializable{
+ 
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "person_id")
+    private Long id;
+
+	@Column(name = "person_username")
+	private String username;
+
+	@Column(name = "person_password")
+	private String password;
+
+	@Transient
+	private String confirmPassword;
+
+	@Column(name = "person_email")
+	private String email;
+
+    @Column(name = "person_surname")
+    private String surname;
+
+	@Column(name = "person_name")
+	private String name;
+
+	@Column(name = "person_middlename")
+	private String middlename;
+
+	public Person(){}
+
+    public Long getId(){
+    	return id;
+	}
+
+	public void setId(Long id){
+    	this.id = id;
+	}
+
+	public String getUsername(){
+		return username;
+	}
+
+	public void setUsername(String username){
+		this.username = username;
+	}
+
+	public String getPassword(){
+		return password;
+	}
+
+	public void setPassword(String password){
+		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public String getEmail(){
+		return email;
+	}
+
+	public void setEmail(String email){
+		this.email = email;
+	}
+
+	public String getSurname(){
+		return surname;
+	}
+
+	public void setSurname(String surname){
+		this.surname = surname;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public void setName(String name){
+		this.name = name;
+	}
+
+	public String getMiddlename(){
+		return middlename;
+	}
+
+	public void setMiddlename(String middlename){
+		this.middlename = middlename;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+	@JoinTable(
+			name = "person_role",
+			joinColumns = { @JoinColumn(name = "person_id") },
+			inverseJoinColumns = { @JoinColumn(name = "role_code") }
+	)
+	private Set<Role> roles = new HashSet<Role>();
+
+	public Set<Role> getRoles(){
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles){
+		this.roles = roles;
+	}
+
+
+}

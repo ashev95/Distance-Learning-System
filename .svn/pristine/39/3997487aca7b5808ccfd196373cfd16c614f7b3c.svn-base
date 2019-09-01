@@ -1,0 +1,36 @@
+{
+  "template": {
+    "person": {
+      "buttons": [
+        {
+          "label": "Сохранить",
+          "iconClass": "save-btn-16",
+          "hideFunction": "return (!this.editMode)",
+          "onClick": "this.appWidget.saveForm(this)"
+        },
+        {
+          "label": "Редактировать",
+          "iconClass": "edit-btn-16",
+          "hideFunction": "return (!!this.editMode)",
+          "onClick": "this.appWidget.editForm(this)"
+        },
+        {
+          "label": "Закрыть",
+          "iconClass": "close-btn-16",
+          "hideFunction": "return false",
+          "onClick": "this.appWidget.closeTab(this)"
+        }
+      ],
+      "attributes":
+        {
+          "id" : "Идентификатор",
+          "username" : "Логин",
+          "email" : "Почта",
+          "surname" : "Фамилия",
+          "name" : "Имя",
+          "middlename" : "Отчество",
+          "roles" : "Роли"
+        }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+package com.dls.base.controller;
+
+import com.dls.base.entity.Person;
+import com.dls.base.entity.Role;
+import com.dls.base.repository.PersonRepository;
+import com.dls.base.repository.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.annotation.PostConstruct;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+@Controller
+@RequestMapping("/")
+public class MainController
+{
+
+	private final PersonRepository personRepository;
+	private final RoleRepository roleRepository;
+
+	@Autowired
+	MainController(PersonRepository personRepository, RoleRepository roleRepository) {
+		this.personRepository = personRepository;
+		this.roleRepository = roleRepository;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String main()
+	{
+		return "index";
+	}
+
+	//Применять ли содержимое конфиг-файла
+	@Value("#{appProperties['properties.read']}")
+	private boolean propertiesRead;
+
+	//Карточка Администратора
+	@Value("#{appProperties['admin.name']}")
+	private String adminName;
+
+	//Роли
+	@Value("#{appProperties['roles.admin.name']}")
+	private String rolesAdminName;
+
+	@Value("#{appProperties['roles.admin.code']}")
+	private String rolesAdminCode;
+
+	@Value("#{appProperties['roles.admin_of_educational_process.name']}")
+	private String rolesAdminOfEducationalProcessName;
+
+	@Value("#{appProperties['roles.admin_of_educational_process.code']}")
+	private String rolesAdminOfEducationalProcessCode;
+
+	@Value("#{appProperties['roles.curator.name']}")
+	private String rolesCuratorName;
+
+	@Value("#{appProperties['roles.curator.code']}")
+	private String rolesCuratorCode;
+
+	@Value("#{appProperties['roles.student.name']}")
+	private String rolesStudentName;
+
+	@Value("#{appProperties['roles.student.code']}")
+	private String rolesStudentCode;
+
+	@PostConstruct
+	public void postConstruct() {
+		if (propertiesRead) {
+			Role role;
+			Person person;
+			//Создаём роли, если их нет
+			if (this.roleRepository.findAll().size() == 0){
+
+				role = new Role();
+				role.setName(rolesAdminName);
+				role.setCode(rolesAdminCode);
+				this.roleRepository.save(role);
+
+				role = new Role();
+				role.setName(rolesAdminOfEducationalProcessName);
+				role.setCode(rolesAdminOfEducationalProcessCode);
+				this.roleRepository.save(role);
+
+				role = new Role();
+				role.setName(rolesCuratorName);
+				role.setCode(rolesCuratorCode);
+				this.roleRepository.save(role);
+
+				role = new Role();
+				role.setName(rolesStudentName);
+				role.setCode(rolesStudentCode);
+				this.roleRepository.save(role);
+
+			}
+			//Создаём администратора, если пользователей нет
+			if (this.personRepository.findAll().size() == 0){
+				person = new Person();
+				person.setName(adminName);
+				person = this.personRepository.save(person);
+
+				//Добавляем роль администратору
+				role = this.roleRepository.findByRoleCode(rolesAdminCode);
+				Set<Role> adminRoles = new HashSet<>();
+				adminRoles.add(role);
+				person.setRoles(adminRoles);
+				this.personRepository.save(person);
+
+			}
+
+		}
+	}
+
+}
